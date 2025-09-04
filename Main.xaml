@@ -1,0 +1,18 @@
+﻿<Window x:Class="FlowerShop.WpfClient.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlowerShop.WpfClient"
+        mc:Ignorable="d"
+        Title="Цветочный" Height="450" Width="800" 
+        Background="#CCCCCC">
+    <TabControl Background="#CCCCCC" BorderThickness="0px">
+        <TabItem Header="Главная" Background="#A5A5A5">
+            <DataGrid Background="#CCCCCC" ></DataGrid>
+        </TabItem>
+        <TabItem Header="Клиенты" Background="#A5A5A5">
+            <DataGrid Background="#CCCCCC" ItemsSource="{Binding Users}" AutoGenerateColumns="True"></DataGrid>
+        </TabItem>
+    </TabControl>
+</Window>
