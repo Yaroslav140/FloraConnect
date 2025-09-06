@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using FlowerShop.WpfClient.ApiClient;
+using FlowerShop.WpfClient.ModelView;
+using System.Windows;
 
 namespace FlowerShop.WpfClient
 {
@@ -9,5 +11,4 @@ namespace FlowerShop.WpfClient
             InitializeComponent();
         }
     }
-
 }

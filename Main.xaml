@@ -12,7 +12,8 @@
             <DataGrid Background="#CCCCCC" ></DataGrid>
         </TabItem>
         <TabItem Header="Клиенты" Background="#A5A5A5">
-            <DataGrid Background="#CCCCCC" ItemsSource="{Binding Users}" AutoGenerateColumns="True"></DataGrid>
+            <DataGrid Background="#CCCCCC" ItemsSource="{Binding Users}" AutoGenerateColumns="True"/>
         </TabItem>
+
     </TabControl>
 </Window>

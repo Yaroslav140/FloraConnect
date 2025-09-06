@@ -3,19 +3,18 @@ using System.Net.Http.Json;
 
 namespace FlowerShop.WpfClient.ApiClient
 {
-    public sealed class BaseApiClient
+    public sealed class BaseApiClient : IDisposable
     {
         private readonly HttpClient _httpClient;
 
-        public BaseApiClient(string baseAddress)
+        public BaseApiClient()
         {
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri(baseAddress)
+                BaseAddress = new Uri("https://localhost:7241/")
             };
         }
 
-        // Универсальные методы (можно расширять под GET/POST/PUT/DELETE)
         public async Task<T?> GetAsync<T>(string url)
         {
             return await _httpClient.GetFromJsonAsync<T>(url);
@@ -30,5 +29,7 @@ namespace FlowerShop.WpfClient.ApiClient
         {
             return await _httpClient.DeleteAsync(url);
         }
+
+        public void Dispose() => _httpClient.Dispose();
     }
 }
