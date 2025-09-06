@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CvvGFaRVtDg=",
+  "dgSpecHash": "U7eQSwSYmaA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\param\\source\\repos\\FlowerShop.WpfClient\\FlowerShop.WpfClient.csproj",
+  "projectFilePath": "C:\\Users\\param\\source\\repos\\FloraConnect\\FlowerShop.WpfClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\param\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
     "C:\\Users\\param\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.8\\microsoft.extensions.dependencyinjection.9.0.8.nupkg.sha512",
