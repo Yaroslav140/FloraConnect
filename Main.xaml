@@ -21,19 +21,19 @@
             <Button Grid.Column="4" Content="Удалить" Command="{Binding DeleateCommand}"/>
         </Grid>
 
-        <TabControl Background="#CCCCCC" BorderThickness="0">
-            <TabItem Header="Главная" Background="#A5A5A5">
-                <DataGrid ItemsSource="{Binding Orders}" AutoGenerateColumns="True" Margin="5" Background="#CCCCCC"/>
-            </TabItem>
-            <TabItem Header="Клиенты" Background="#A5A5A5">
-                <DataGrid ItemsSource="{Binding Users}" AutoGenerateColumns="True" Margin="5" Background="#CCCCCC"/>
-            </TabItem>
-            <TabItem Header="Букеты" Background="#A5A5A5">
-                <DataGrid ItemsSource="{Binding Bouquets}" AutoGenerateColumns="True" Margin="5" Background="#CCCCCC"/>
-            </TabItem>
-            <TabItem Header="Цветы" Background="#A5A5A5">
-                <DataGrid ItemsSource="{Binding Flowers}" AutoGenerateColumns="True" Margin="5" Background="#CCCCCC"/>
-            </TabItem>
+        <TabControl ItemsSource="{Binding Modules}"
+                    SelectedItem="{Binding CurrentModule}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" AutoGenerateColumns="True" Margin="5" Background="#CCCCCC"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
 </Window>
