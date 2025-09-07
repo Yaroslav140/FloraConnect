@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Margin="5" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="0" Margin="5" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="25" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Grid.Column="1" Content="Поиск" Command="{Binding SearchCommand}"/>
             <Button Grid.Column="2" Content="Добавить" Command="{Binding AddCommand}"/>
