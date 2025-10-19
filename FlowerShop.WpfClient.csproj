@@ -24,4 +24,8 @@
     <ProjectReference Include="..\FlowerShop.Dto\FlowerShop.Dto.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Image\Icon.png" />
+  </ItemGroup>
+
 </Project>
