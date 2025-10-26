@@ -5,9 +5,10 @@
         SizeToContent="WidthAndHeight"
         MinHeight="800"
         MinWidth="1200"
+        MaxWidth="1200"
         Background="#212529"
         ResizeMode="NoResize">
-    <Grid>
+    <Grid Cursor="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
@@ -17,24 +18,56 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GridSplitter Grid.RowSpan="5" Width="1" HorizontalAlignment="Right" Background="#343a40" />
-        <GridSplitter Grid.Column="1" Grid.Row="1" MinWidth="950" Height="1" HorizontalAlignment="Right" Background="#343a40" />
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Image Source="/Image/Icon.png" MaxHeight="40"/>
+        <GridSplitter Grid.RowSpan="5" Width="1" VerticalAlignment="Stretch" Background="#343a40" IsEnabled="False"/>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Height="1" HorizontalAlignment="Stretch" Background="#343a40" IsEnabled="False" Cursor="SizeNS"/>
+        <StackPanel Orientation="Horizontal" Margin="10" Cursor="">
+            <Image Source="C:\Users\param\source\repos\FloraConnect\Image\Icon.png" MaxHeight="40"/>
             <TextBlock Text="FlowerAdmin" FontSize="20" Margin="20,0,0,0" VerticalAlignment="Center" Foreground="#ced4da"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.RowSpan="3" Orientation="Vertical" Margin="10">
-            <Button Content="Заказы"  />
-            <Button Content="Пользователи"  />
-            <Button Content="Букеты"  />
+        <StackPanel Grid.Row="1" Grid.RowSpan="3" Orientation="Vertical" Margin="10, 5, 10, 0">
+            <RadioButton x:Name="OrdersView" GroupName="FlowerView" Content="Заказы" Style="{StaticResource DefaultButton}" IsChecked="True"/>
+            <RadioButton x:Name="UsersView" GroupName="FlowerView" Content="Пользователи" Style="{StaticResource DefaultButton}"/>
+            <RadioButton x:Name="BouquetsView" GroupName="FlowerView" Content="Букеты" Style="{StaticResource DefaultButton}"/>
         </StackPanel>
 
         <DockPanel Grid.Column="1" Margin="20,15,20,20">
-            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#343a40" BorderThickness="1" BorderBrush="#495057">
+            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#343a40" BorderThickness="1" BorderBrush="#495057"
+                    Margin="0,0,360, 0">
                 <TextBox x:Name="SearchBox" Background="Transparent" BorderBrush="Transparent" 
-                 Foreground="#ced4da" Padding="10" Text="Поиск" />
+                 Foreground="#ced4da" Padding="10" Text="Поиск"/>
             </Border>
         </DockPanel>
-
+        <Grid Grid.Column="1" Grid.Row="2" Margin="20" x:Name="OrderGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=OrdersView}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <StackPanel>
+                <DockPanel Margin="0,0,0,20">
+                    <StackPanel Margin="0,0,20,0">
+                        <TextBlock Text="Заказы" FontSize="20" Foreground="{StaticResource FgPrimary}" DockPanel.Dock="Top"/>
+                        <TextBlock Text="Управление заказами клиентов" FontSize="20" Foreground="{StaticResource FgMuted}" DockPanel.Dock="Bottom"/>
+                    </StackPanel>
+                    <DockPanel HorizontalAlignment="Right">
+                        <Button x:Name="AddOrders" Content="+    Добавить заказ" Style="{StaticResource AddButton}"/>
+                    </DockPanel>
+                </DockPanel>
+                <DataGrid x:Name="DataOrders">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id заказа" Binding="{Binding OrderId}" Width="*"/>
+                        <DataGridTextColumn Header="Имя заказчика" Binding="{Binding UserName}" Width="*"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding TotalPrice}" Width="*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
+                        <DataGridTextColumn Header="Дата заказа" Binding="{Binding PickupDate}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
