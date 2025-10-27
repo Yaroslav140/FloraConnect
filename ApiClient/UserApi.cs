@@ -4,14 +4,9 @@ using System.Net.Http;
 
 namespace FlowerShop.WpfClient.ApiClient
 {
-    public class UserApi
+    public class UserApi(BaseApiClient apiClient)
     {
-        private readonly BaseApiClient _apiClient;
-
-        public UserApi(BaseApiClient apiClient)
-        {
-            _apiClient = apiClient;
-        }
+        private readonly BaseApiClient _apiClient = apiClient;
 
         public Task<List<GetUserDto>?> GetAllUsers() => _apiClient.GetAsync<List<GetUserDto>>("api/users");
 
