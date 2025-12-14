@@ -51,12 +51,12 @@
                     <Grid>
                         <Border
                             CornerRadius="10"
-                            Height="45"
+                            Height="40"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"/>
                         <ContentPresenter
-                            Margin="12"
+                            Margin="8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             RecognizesAccessKey="True"/>
