@@ -9,6 +9,7 @@ namespace FlowerShop.WpfClient.ViewModel
     {
         public UserViewModel UsersVM { get; }
         public OrderViewModel OrdersVM { get; }
+        public BouquetViewModel BouquetsVM { get; }
 
         private object _current;
         public object Current
@@ -43,10 +44,24 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        public MainViewModel(UserViewModel usersVM, OrderViewModel ordersVM)
+        private bool _isBouquetsSelected;
+        public bool IdBouquetsSelected
+        {
+            get => _isBouquetsSelected;
+            set
+            {
+                if (_isBouquetsSelected == value) return;
+                _isBouquetsSelected = value;
+                OnPropertyChanged();
+                if (value) Current = BouquetsVM;
+            }
+        }
+
+        public MainViewModel(UserViewModel usersVM, OrderViewModel ordersVM, BouquetViewModel boquetsVM)
         {
             UsersVM = usersVM;
             OrdersVM = ordersVM;
+            BouquetsVM = boquetsVM;
 
             Current = OrdersVM;
         }
@@ -57,6 +72,7 @@ namespace FlowerShop.WpfClient.ViewModel
         {
             (UsersVM as IDisposable)?.Dispose();
             (OrdersVM as IDisposable)?.Dispose();
+            (BouquetsVM as IDisposable)?.Dispose();
         }
     }
 }

@@ -21,13 +21,16 @@ namespace FlowerShop.WpfClient
             sc.AddTransient<MainViewModel>();
             sc.AddTransient<UserViewModel>();
             sc.AddTransient<OrderViewModel>();
+            sc.AddTransient<BouquetViewModel>();
 
             sc.AddScoped<HttpClient>();
             sc.AddScoped<BaseApiClient>();
             sc.AddScoped<UserApi>();
             sc.AddScoped<OrderApi>();
+            sc.AddScoped<BouquetApi>();
             sc.AddScoped<UserPollingService>();
             sc.AddScoped<OrderPollingService>();
+            sc.AddScoped<BouquetPollingService>();
 
             Service = sc.BuildServiceProvider();
             var main = Service.GetRequiredService<Main>();

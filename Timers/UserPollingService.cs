@@ -50,5 +50,4 @@ namespace FlowerShop.WpfClient.Timers
             }
         }
     }
-
 }
