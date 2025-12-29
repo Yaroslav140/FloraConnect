@@ -73,18 +73,27 @@
                                 <DataGridTextColumn Header="Цена" Binding="{Binding TotalAmount}" Width="Auto"/>
                                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="Auto"/>
                                 <DataGridTextColumn Header="Дата заказа" Binding="{Binding PickupDate}" Width="Auto"/>
-
-                                <DataGridTemplateColumn Header="Действия" Width="*">
+                                
+                                <DataGridTemplateColumn Header="Действия" Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                <Button Content="Детали" Margin="2"/>
-                                                <Button Content="Редактировать" Margin="2"/>
-                                                <Button Content="Удалить" Margin="2"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Button Style="{StaticResource ActionButton}">
+                                                    <Image Source="/Image/view.png" Width="16" Height="16"/>
+                                                </Button>
+
+                                                <Button Style="{StaticResource ActionButton}">
+                                                    <Image Source="/Image/edit.png" Width="16" Height="16"/>
+                                                </Button>
+
+                                                <Button Style="{StaticResource ActionButton}">
+                                                    <Image Source="/Image/delete.png" Width="16" Height="16"/>
+                                                </Button>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
+
                             </DataGrid.Columns>
                         </DataGrid>
                     </Border>

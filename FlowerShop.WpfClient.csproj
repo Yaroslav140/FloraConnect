@@ -16,7 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Image\delete.png" />
+    <None Remove="Image\edit.png" />
     <None Remove="Image\Icon.png" />
+    <None Remove="Image\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +33,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Image\Icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\view.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
