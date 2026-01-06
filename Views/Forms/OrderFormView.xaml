@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="FlowerShop.WpfClient.Views.Forms.OrderFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel Width="420">
+        <TextBlock Text="Имя заказчика" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Цена" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBox Text="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Статус" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status}" Margin="0,0,0,12"/>
+
+        <TextBlock Text="Дата" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <DatePicker SelectedDate="{Binding Date}" />
+    </StackPanel>
+</UserControl>

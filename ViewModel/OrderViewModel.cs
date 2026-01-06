@@ -1,10 +1,10 @@
 ﻿using FlowerShop.Dto.DTOGet;
 using FlowerShop.WpfClient.ApiClient;
+using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -43,14 +43,28 @@ namespace FlowerShop.WpfClient.ViewModel
                 }
             }
         }
+        private GetOrderDto? _selectedOrder;
+        public GetOrderDto? SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                if (!Equals(_selectedOrder, value))
+                {
+                    _selectedOrder = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+        private readonly IDialogService _dialog;
         public ICommand SearchCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
         private readonly OrderPollingService _pollingService;
-        public OrderViewModel(OrderApi orderApi)
+        public OrderViewModel(OrderApi orderApi, IDialogService dialog)
         {
             _orderApi = orderApi ?? throw new ArgumentNullException(nameof(orderApi));
             Orders = new ObservableCollection<GetOrderDto>();
@@ -60,6 +74,11 @@ namespace FlowerShop.WpfClient.ViewModel
             _ = LoadAsync();
 
             _pollingService.Start();
+            _orderApi = orderApi;
+            _dialog = dialog;
+
+            CreateCommand = new RelayCommand(_ => Create());
+            EditCommand = new RelayCommand(_ => Edit(), _ => SelectedOrder != null);
         }
 
         private void OnOrdersUpdated(List<GetOrderDto>? orders)
@@ -118,7 +137,30 @@ namespace FlowerShop.WpfClient.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        private void Create()
+        {
+            var vm = new OrderEditViewModel(isEdit: false);
+            var ok = _dialog.ShowDialog(vm);
 
+            if (ok == true)
+            {
+                // собрать DTO из vm и вызвать API Create
+                // потом LoadAsync()
+            }
+        }
+
+        private void Edit()
+        {
+            if (SelectedOrder == null) return;
+
+            var vm = new OrderEditViewModel(isEdit: true /*, existing: SelectedOrder */);
+            var ok = _dialog.ShowDialog(vm);
+
+            if (ok == true)
+            {
+                // API Update
+            }
+        }
         public void Dispose() => _pollingService?.Stop();
     }
 }

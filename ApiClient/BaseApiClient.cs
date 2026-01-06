@@ -31,6 +31,10 @@ namespace FlowerShop.WpfClient.ApiClient
         {
             return await _httpClient.PostAsJsonAsync(url, data);
         }
+        public async Task<HttpResponseMessage> UpdateAsync<T>(string url, T data)
+        {
+            return await _httpClient.PutAsJsonAsync(url, data);
+        }
 
         public async Task<HttpResponseMessage> DeleteAsync(string url)
         {

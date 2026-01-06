@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="FlowerShop.WpfClient.Views.Forms.UserFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Width="420">
+        <TextBlock Text="Имя клиента" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Логин" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+    </StackPanel>
+</UserControl>

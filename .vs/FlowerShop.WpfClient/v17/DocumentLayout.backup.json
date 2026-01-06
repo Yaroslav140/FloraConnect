@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\param\\repos\\FloraConnect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\styles\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:styles\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\viewmodel\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:viewmodel\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\main.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:main.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\styles\\buttons.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:styles\\buttons.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,26 +30,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-29T13:26:13.044Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Buttons.xaml",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\Styles\\Buttons.xaml",
-              "RelativeDocumentMoniker": "Styles\\Buttons.xaml",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\Styles\\Buttons.xaml",
-              "RelativeToolTip": "Styles\\Buttons.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-29T11:38:42.172Z",
+              "DocumentIndex": 0,
+              "Title": "UserViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\UserViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\UserViewModel.cs",
+              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\UserViewModel.cs",
+              "RelativeToolTip": "ViewModel\\UserViewModel.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAIwKEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T19:17:35.616Z",
               "EditorCaption": ""
             },
             {
@@ -69,30 +50,18 @@
               "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\Main.xaml",
               "RelativeToolTip": "Main.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-28T16:04:10.69Z",
+              "WhenOpened": "2026-01-06T19:11:21.529Z",
               "EditorCaption": ""
             }
           ]
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DataGrid.xaml",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\Styles\\DataGrid.xaml",
-              "RelativeDocumentMoniker": "Styles\\DataGrid.xaml",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\Styles\\DataGrid.xaml",
-              "RelativeToolTip": "Styles\\DataGrid.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-29T13:22:39.284Z",
-              "EditorCaption": ""
             }
           ]
         }

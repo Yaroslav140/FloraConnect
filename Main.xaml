@@ -61,11 +61,11 @@
                             <TextBlock Text="Управление заказами клиентов" FontSize="20" Foreground="{StaticResource FgMuted}" DockPanel.Dock="Bottom"/>
                         </StackPanel>
                         <DockPanel HorizontalAlignment="Right">
-                            <Button x:Name="AddOrders" Content="+    Добавить заказ" Style="{StaticResource AddButton}"/>
+                            <Button x:Name="AddOrders" Content="+    Добавить заказ" Style="{StaticResource AddButton}" Command="{Binding OrdersVM.CreateCommand}"/>
                         </DockPanel>
                     </DockPanel>
                     <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
-                        <DataGrid ItemsSource="{Binding OrdersVM.Orders}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
+                        <DataGrid ItemsSource="{Binding OrdersVM.Orders}" SelectedItem="{Binding OrdersVM.SelectedOrder, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id заказа" Binding="{Binding Id}" Width="*"/>
@@ -117,11 +117,11 @@
                             <TextBlock Text="Управление учетными записями пользователей" FontSize="20" Foreground="{StaticResource FgMuted}" DockPanel.Dock="Bottom"/>
                         </StackPanel>
                         <DockPanel HorizontalAlignment="Right">
-                            <Button x:Name="AddUsers" Content="+    Добавить пользователя" Style="{StaticResource AddButton}"/>
+                            <Button x:Name="AddUsers" Content="+    Добавить пользователя" Style="{StaticResource AddButton}" Command="{Binding UsersVM.CreateCommand}"/>
                         </DockPanel>
                     </DockPanel>
                     <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
-                        <DataGrid ItemsSource="{Binding UsersVM.Users}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
+                        <DataGrid ItemsSource="{Binding UsersVM.Users}" SelectedItem="{Binding UsersVM.SelectedUser, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id пользотваеля" Binding="{Binding UserId}" Width="*"/>
@@ -134,7 +134,9 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                <Button Content="Редактировать" Margin="2"/>
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.UsersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                    <Image Source="/Image/edit.png" Width="16" Height="16"/>
+                                                </Button>
                                                 <Button Content="Удалить" Margin="2"/>
                                             </StackPanel>
                                         </DataTemplate>

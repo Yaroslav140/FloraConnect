@@ -1,5 +1,7 @@
 ﻿using FlowerShop.Dto.DTOGet;
+using FlowerShop.Dto.DTOUpdate;
 using FlowerShop.WpfClient.ApiClient;
+using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
@@ -44,6 +46,20 @@ namespace FlowerShop.WpfClient.ViewModel
                 }
             }
         }
+        private GetUserDto? _selectedUser;
+        public GetUserDto? SelectedUser
+        {
+            get => _selectedUser;
+            set
+            {
+                if (!Equals(_selectedUser, value))
+                {
+                    _selectedUser = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private readonly IDialogService _dialog;
 
         public ICommand SearchCommand { get; }
         public ICommand CreateCommand { get; }
@@ -51,17 +67,20 @@ namespace FlowerShop.WpfClient.ViewModel
         public ICommand DeleteCommand { get; }
 
         private readonly UserPollingService _pollingService;
-        public UserViewModel(UserApi userApi)
+        public UserViewModel(UserApi userApi, IDialogService dialog)
         {
             _userApi = userApi ?? throw new ArgumentNullException(nameof(userApi));
             Users = new ObservableCollection<GetUserDto>();
 
-            _pollingService = new UserPollingService(_userApi, OnUsersUpdated, TimeSpan.FromSeconds(10)); // Интервал 10 сек
+            _pollingService = new UserPollingService(_userApi, OnUsersUpdated, TimeSpan.FromSeconds(10));
 
             SearchCommand = new RelayCommand(_ => SearchUserAsync());
             _ = LoadAsync();
+            _dialog = dialog;
 
             _pollingService.Start();
+            CreateCommand = new RelayCommand(_ => Create());
+            EditCommand = new RelayCommand(p => Edit(p as GetUserDto), p => p is GetUserDto);
         }
         private void OnUsersUpdated(List<GetUserDto>? users)
         {
@@ -116,6 +135,46 @@ namespace FlowerShop.WpfClient.ViewModel
                 MessageBox.Show("Ошибка при загрузке пользователей");
             }
         }
+
+        private void Create()
+        {
+            var vm = new UserEditViewModel();
+            var ok = _dialog.ShowDialog(vm);
+
+            if (ok == true)
+            {
+                // собрать DTO из vm и вызвать API Create
+                // потом LoadAsync()
+            }
+        }
+
+        private async void Edit(GetUserDto? user)
+        {
+            if (user == null) return;
+
+            var vm = new UserEditViewModel(user);
+            var ok = _dialog.ShowDialog(vm);
+
+            if (ok == true)
+            {
+                try
+                {
+                    await _userApi.UpdateUser(new UpdateUserDto(
+                        user.UserId,
+                        vm.Username,
+                        vm.Login,
+                        null,
+                        null));
+
+                    await LoadAsync();
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка при обновлении пользователя");
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string? propertyName = null)

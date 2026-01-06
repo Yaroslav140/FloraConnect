@@ -5,5 +5,14 @@
     <Compile Update="Main.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\EntityDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Forms\OrderFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Forms\UserFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

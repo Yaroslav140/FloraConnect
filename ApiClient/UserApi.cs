@@ -1,5 +1,6 @@
 ﻿using FlowerShop.Dto.DTOCreate;
 using FlowerShop.Dto.DTOGet;
+using FlowerShop.Dto.DTOUpdate;
 using System.Net.Http;
 
 namespace FlowerShop.WpfClient.ApiClient
@@ -10,9 +11,8 @@ namespace FlowerShop.WpfClient.ApiClient
 
         public Task<List<GetUserDto>?> GetAllUsers() => _apiClient.GetAsync<List<GetUserDto>>("api/users");
         public Task<List<GetUserDto>?> GetUserByName(string name) => _apiClient.GetAsyncByName<List<GetUserDto>>("api/users", name);
-
         public Task<HttpResponseMessage> CreateUser(CreateUserDto dto) => _apiClient.PostAsync("api/users", dto);
-
+        public Task<HttpResponseMessage> UpdateUser(UpdateUserDto dto) => _apiClient.UpdateAsync("api/users", dto);
         public Task<HttpResponseMessage> DeleteUser(string email) => _apiClient.DeleteAsync($"api/users?email={email}");
     }
 }

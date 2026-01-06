@@ -3,5 +3,51 @@
     <SolidColorBrush x:Key="FgPrimary" Color="#ced4da"/>
     <SolidColorBrush x:Key="FgMuted" Color="#6c757d"/>
     <SolidColorBrush x:Key="BgPrimary" Color="#212529"/>
-    <SolidColorBrush x:Key="BgMuted" Color="#1a1d20"/> 
+    <SolidColorBrush x:Key="BgMuted" Color="#1a1d20"/>
+
+    <Style x:Key="FormsBox" TargetType="TextBox">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Padding" Value="6, 0"/>
+        <Setter Property="FontSize" Value="12"/>
+
+        <Setter Property="Background" Value="#1F262D"/>
+        <Setter Property="BorderBrush" Value="#2B3641"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="#E6EDF3"/>
+        <Setter Property="CaretBrush" Value="#E6EDF3"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#3A4A59"/>
+                        </Trigger>
+
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#4F6BFF"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

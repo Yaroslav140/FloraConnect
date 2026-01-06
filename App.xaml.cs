@@ -1,4 +1,5 @@
 ﻿using FlowerShop.WpfClient.ApiClient;
+using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace FlowerShop.WpfClient
             sc.AddScoped<UserPollingService>();
             sc.AddScoped<OrderPollingService>();
             sc.AddScoped<BouquetPollingService>();
+            sc.AddSingleton<IDialogService, DialogService>();
 
             Service = sc.BuildServiceProvider();
             var main = Service.GetRequiredService<Main>();

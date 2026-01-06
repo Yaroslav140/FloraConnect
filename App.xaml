@@ -1,15 +1,24 @@
 ﻿<Application x:Class="FlowerShop.WpfClient.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FlowerShop.WpfClient">
+             xmlns:vm="clr-namespace:FlowerShop.WpfClient.ViewModel"
+             xmlns:forms="clr-namespace:FlowerShop.WpfClient.Views.Forms">
     <Application.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Main.xaml"/>
                 <ResourceDictionary Source="/Styles/DataGrid.xaml"/>
                 <ResourceDictionary Source="/Styles/Buttons.xaml"/>
-                <ResourceDictionary Source="/Styles/TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vm:OrderEditViewModel}">
+                <forms:OrderFormView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:UserEditViewModel}">
+                <forms:UserFormView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
