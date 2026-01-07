@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\param\\repos\\FloraConnect\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\views\\forms\\orderformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:views\\forms\\orderformview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\viewmodel\\edits\\ordereditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:viewmodel\\edits\\ordereditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,16 +27,41 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderFormView.xaml",
+              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\Views\\Forms\\OrderFormView.xaml",
+              "RelativeDocumentMoniker": "Views\\Forms\\OrderFormView.xaml",
+              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\Views\\Forms\\OrderFormView.xaml",
+              "RelativeToolTip": "Views\\Forms\\OrderFormView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-07T22:56:43.89Z",
+              "EditorCaption": ""
             }
           ]
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderEditViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\Edits\\OrderEditViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\Edits\\OrderEditViewModel.cs",
+              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\Edits\\OrderEditViewModel.cs",
+              "RelativeToolTip": "ViewModel\\Edits\\OrderEditViewModel.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAiwH4AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T22:56:25.087Z",
+              "EditorCaption": ""
             }
           ]
         }

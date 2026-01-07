@@ -4,7 +4,6 @@
     <SolidColorBrush x:Key="FgMuted" Color="#6c757d"/>
     <SolidColorBrush x:Key="BgPrimary" Color="#212529"/>
     <SolidColorBrush x:Key="BgMuted" Color="#1a1d20"/>
-
     <Style x:Key="FormsBox" TargetType="TextBox">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Padding" Value="6, 0"/>

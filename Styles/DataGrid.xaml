@@ -32,6 +32,7 @@
         <Setter Property="Padding" Value="12,10"/>
         <Setter Property="BorderBrush" Value="{StaticResource GridLineBrush}"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        
     </Style>
 
     <Style TargetType="DataGridRow">
@@ -58,11 +59,27 @@
     </Style>
 
     <Style TargetType="DataGridCell">
-        <Setter Property="Padding" Value="12,10"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GridLineBrush}"/>
         <Setter Property="BorderThickness" Value="1,1,1,1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
+
 
 </ResourceDictionary>

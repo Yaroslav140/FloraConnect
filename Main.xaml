@@ -82,7 +82,7 @@
                                                     <Image Source="/Image/view.png" Width="16" Height="16"/>
                                                 </Button>
 
-                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
                                                     <Image Source="/Image/edit.png" Width="16" Height="16"/>
                                                 </Button>
 

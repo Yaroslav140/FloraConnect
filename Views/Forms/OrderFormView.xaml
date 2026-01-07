@@ -6,25 +6,68 @@
         <TextBlock Text="Имя заказчика" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
         <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
 
-        <TextBlock Text="Цена" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
-        <TextBox Text="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
-
         <TextBlock Text="Статус" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
         <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status}" Margin="0,0,0,12"/>
 
         <TextBlock Text="Дата" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
         <DatePicker SelectedDate="{Binding Date}" Margin="0,0,0,12"/>
 
-        <GridSplitter Background="Black" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
+        <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
 
         <TextBlock Text="Добавить букет" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
         <TextBlock Text="Выбор букета" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
-        <ComboBox ItemsSource="{Binding Bouquets}" SelectedItem="{Binding Bouquet}" Margin="0,0,0,6"/>
+        <ComboBox ItemsSource="{Binding Bouquets}"
+          SelectedItem="{Binding SelectedBouquet}"
+          Margin="0,0,0,6">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Price, StringFormat='{}{0} ₽'}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Quantity, StringFormat='В наличии: {0}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
 
         <TextBlock Text="Количество" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
-        <DockPanel>
-            <TextBox Text="{Binding Stock, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}" DockPanel.Dock="Left" HorizontalAlignment="Stretch" Margin="0,0,60,0"/>
-            <Button Content="+  Добавить" DockPanel.Dock="Right" HorizontalAlignment="Stretch"/>
+        <DockPanel Margin="0,0,0,12">
+            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}" HorizontalAlignment="Stretch" Width="120" Margin="0,0,60,0"/>
+            <Button Content="+  Добавить" DockPanel.Dock="Right" Command="{Binding AddBouquetCommand}" HorizontalAlignment="Right" Style="{StaticResource AddButton}"/>
         </DockPanel>
+
+        <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
+
+        <TextBlock Text="Букеты в заказе" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
+        <DataGrid ItemsSource="{Binding OrderItems}"
+          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          Margin="0,0,0,12">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Букет" Binding="{Binding Bouquet.Name}" Width="*"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="Auto"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="Auto"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding LineTotal}" Width="Auto"/>
+
+                <DataGridTemplateColumn Header="Действия" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.RemoveBouquetCommand,
+                                              RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Style="{StaticResource ActionButton}">
+                                <Image Source="/Image/delete.png" Width="16" Height="16"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
+        <TextBlock Text="Итоговая цена:" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="{Binding TotalPrice}" FontSize="16" Foreground="{StaticResource FgPrimary}"/>
+
     </StackPanel>
 </UserControl>

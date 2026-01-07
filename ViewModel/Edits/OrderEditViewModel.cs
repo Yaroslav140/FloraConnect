@@ -1,12 +1,18 @@
 ﻿using FlowerShop.Data.Models;
+using FlowerShop.Dto.DTOCreate;
 using FlowerShop.Dto.DTOGet;
+using FlowerShop.Dto.DTOUpdate;
 using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.ViewModel.Base;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FlowerShop.WpfClient.ViewModel
 {
-    public sealed class OrderEditViewModel : IRequestClose
+    public sealed class OrderEditViewModel : IRequestClose, INotifyPropertyChanged
     {
         public bool IsEdit { get; }
         public string Title => IsEdit ? "Редактировать заказ" : "Добавление нового заказа";
@@ -14,33 +20,164 @@ namespace FlowerShop.WpfClient.ViewModel
         public string OkText => IsEdit ? "Сохранить" : "Добавить";
 
         public string CustomerName { get; set; } = "";
-        public decimal TotalPrice { get; set; } = decimal.Zero;
         public OrderStatus Status { get; set; } = OrderStatus.New;
         public DateTime Date { get; set; } = DateTime.Today;
 
-        public IEnumerable<OrderStatus> Statuses => Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
+        public IEnumerable<OrderStatus> Statuses =>
+            Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
 
+        public ObservableCollection<GetBouquetDto> Bouquets { get; } = [];
+
+        private GetBouquetDto? _selectedBouquet;
+        public GetBouquetDto? SelectedBouquet
+        {
+            get => _selectedBouquet;
+            set { _selectedBouquet = value; OnPropertyChanged(); RaiseCanExecutes(); }
+        }
+
+        private int _quantity = 1;
+        public int Quantity
+        {
+            get => _quantity;
+            set { _quantity = value; OnPropertyChanged(); RaiseCanExecutes(); }
+        }
+
+        public ObservableCollection<OrderItemVm> OrderItems { get; } = new();
+
+        private OrderItemVm? _selectedItem;
+        public OrderItemVm? SelectedItem
+        {
+            get => _selectedItem;
+            set { _selectedItem = value; OnPropertyChanged(); RaiseCanExecutes(); }
+        }
+
+        public decimal TotalPrice =>
+            OrderItems.Sum(x => x.Price * x.Quantity);
+
+        public ICommand AddBouquetCommand { get; }
+        public ICommand RemoveBouquetCommand { get; }
         public ICommand OkCommand { get; }
         public ICommand CancelCommand { get; }
 
         public event Action<bool?>? RequestClose;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public OrderEditViewModel()
         {
             IsEdit = false;
+
+            AddBouquetCommand = new RelayCommand(
+                _ => AddBouquet(),
+                _ => SelectedBouquet != null && Quantity > 0
+            );
+
+            RemoveBouquetCommand = new RelayCommand(
+                _ => RemoveBouquet(),
+                _ => SelectedItem != null
+            );
+
             OkCommand = new RelayCommand(_ => RequestClose?.Invoke(true));
             CancelCommand = new RelayCommand(_ => RequestClose?.Invoke(false));
         }
 
-        public OrderEditViewModel(GetOrderDto existing)
+        public OrderEditViewModel(GetOrderDto existing) : this()
         {
             IsEdit = true;
-
             CustomerName = existing.UserName;
             Status = existing.Status;
+            Date = Convert.ToDateTime(existing.PickupDate);
 
-            OkCommand = new RelayCommand(_ => RequestClose?.Invoke(true));
-            CancelCommand = new RelayCommand(_ => RequestClose?.Invoke(false));
+            OrderItems.Clear();
+            foreach (var it in existing.OrderItem)
+            {
+                OrderItems.Add(new OrderItemVm
+                {
+                    OrderItemId = it.OrderItemId,
+                    BouquetId = it.BouquetId,
+                    Bouquet = it.Bouquet,
+                    Quantity = it.Quantity,
+                    Price = it.Bouquet.Price
+                });
+            }
         }
+
+        private void AddBouquet()
+        {
+            if (SelectedBouquet == null) return;
+
+            if (SelectedBouquet.Quantity <= 0)
+                return;
+
+            var item = OrderItems.FirstOrDefault(x => x.BouquetId == SelectedBouquet.BouquetId);
+            if (item == null)
+            {
+                var qty = Math.Min(Quantity, SelectedBouquet.Quantity);
+
+                OrderItems.Add(new OrderItemVm
+                {
+                    OrderItemId = null,
+                    BouquetId = SelectedBouquet.BouquetId,
+                    Bouquet = SelectedBouquet,
+                    Quantity = qty,
+                    Price = SelectedBouquet.Price
+                });
+            }
+            else
+            {
+                var canAdd = SelectedBouquet.Quantity - item.Quantity;
+                if (canAdd <= 0) return;
+
+                item.Quantity += Math.Min(Quantity, canAdd);
+            }
+
+            OnPropertyChanged(nameof(TotalPrice));
+        }
+
+
+        private void RemoveBouquet()
+        {
+            if (SelectedItem == null) return;
+
+            OrderItems.Remove(SelectedItem);
+            SelectedItem = null;
+            OnPropertyChanged(nameof(TotalPrice));
+            RaiseCanExecutes();
+        }
+
+        private void RaiseCanExecutes()
+        {
+            (AddBouquetCommand as RelayCommand)?.RaiseCanExecuteChanged();
+            (RemoveBouquetCommand as RelayCommand)?.RaiseCanExecuteChanged();
+        }
+        public List<CreateOrderItemDto> BuildCreateItems() => [.. OrderItems.Select(x =>
+                new CreateOrderItemDto(
+                    x.BouquetId,
+                    null,
+                    x.Quantity,
+                    x.Price
+                ))];
+        public List<UpdateOrderItemDto> BuildUpdateItems() => [.. OrderItems
+                .Where(x => x.OrderItemId.HasValue)
+                .Select(x =>
+                    new UpdateOrderItemDto(
+                        x.OrderItemId!.Value,
+                        x.BouquetId,
+                        x.Quantity,
+                        x.Bouquet
+                    ))];
+        private void OnPropertyChanged([CallerMemberName] string? n = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
     }
+
+    public sealed class OrderItemVm
+    {
+        public Guid? OrderItemId { get; set; }
+        public Guid BouquetId { get; set; }
+        public GetBouquetDto Bouquet { get; set; } = null!;
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+
+        public decimal LineTotal => Price * Quantity;
+    }
+
 }

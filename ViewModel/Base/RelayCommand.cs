@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace FlowerShop.WpfClient.ViewModel.Base
 {
@@ -22,5 +23,8 @@ namespace FlowerShop.WpfClient.ViewModel.Base
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
+        public void RaiseCanExecuteChanged()
+            => CommandManager.InvalidateRequerySuggested();
     }
 }

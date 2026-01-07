@@ -1,5 +1,6 @@
 ﻿using FlowerShop.Dto.DTOCreate;
 using FlowerShop.Dto.DTOGet;
+using FlowerShop.Dto.DTOUpdate;
 using FlowerShop.WpfClient.ApiClient;
 using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
@@ -18,6 +19,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public string Title => "Заказы";
 
         private readonly OrderApi _orderApi;
+        private readonly BouquetApi _bouquetApi;
         private ObservableCollection<GetOrderDto> _orders;
 
         public ObservableCollection<GetOrderDto> Orders
@@ -66,7 +68,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public ICommand DeleteCommand { get; }
 
         private readonly OrderPollingService _pollingService;
-        public OrderViewModel(OrderApi orderApi, IDialogService dialog)
+        public OrderViewModel(OrderApi orderApi, BouquetApi bouquetApi, IDialogService dialog)
         {
             _orderApi = orderApi ?? throw new ArgumentNullException(nameof(orderApi));
             Orders = new ObservableCollection<GetOrderDto>();
@@ -77,10 +79,11 @@ namespace FlowerShop.WpfClient.ViewModel
 
             _pollingService.Start();
             _orderApi = orderApi;
+            _bouquetApi = bouquetApi;
             _dialog = dialog;
 
             CreateCommand = new RelayCommand(_ => Create());
-            EditCommand = new RelayCommand(_ => Edit(), _ => SelectedOrder != null);
+            EditCommand = new RelayCommand(p => Edit(p as GetOrderDto), p => p is GetOrderDto);
             DeleteCommand = new RelayCommand(_ => DeleteOrder());
         }
 
@@ -156,14 +159,16 @@ namespace FlowerShop.WpfClient.ViewModel
                 MessageBox.Show("Ошибка при загрузке заказов");
             }
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         private async Task Create()
         {
             var vm = new OrderEditViewModel();
+
+            var bouquets = await _bouquetApi.GetAllBouquets();
+            vm.Bouquets.Clear();
+            if(bouquets == null) return;
+            foreach (var b in bouquets)
+                vm.Bouquets.Add(b);
+            var items = vm.BuildCreateItems();
             var ok = _dialog.ShowDialog(vm);
 
             if (ok != true) return;
@@ -175,7 +180,7 @@ namespace FlowerShop.WpfClient.ViewModel
                     vm.Date,
                     vm.TotalPrice,
                     vm.Status,
-                    null);
+                    items);
 
                 var respone = await _orderApi.CreateOrder(dto);
                 var body = await respone.Content.ReadAsStringAsync();
@@ -193,17 +198,41 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        private void Edit()
+        private async void Edit(GetOrderDto? order)
         {
-            if (SelectedOrder == null) return;
+            if (order == null) return;
 
-            var vm = new OrderEditViewModel();
+            var vm = new OrderEditViewModel(order);
+
+            var bouquets = await _bouquetApi.GetAllBouquets();
+            vm.Bouquets.Clear();
+            if (bouquets == null) return;
+            foreach (var b in bouquets)
+                vm.Bouquets.Add(b);
+            var items = vm.BuildUpdateItems();
+
             var ok = _dialog.ShowDialog(vm);
 
             if (ok == true)
             {
-                // API Update
+                try
+                {
+                    await _orderApi.UpdateOrder(new UpdateOrderDto(
+                        order.Id,
+                        order.Status,
+                        items));
+                    await LoadAsync();
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка при обновлении заказа");
+                }
             }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void Dispose() => _pollingService?.Stop();
     }
