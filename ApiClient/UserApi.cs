@@ -13,6 +13,6 @@ namespace FlowerShop.WpfClient.ApiClient
         public Task<List<GetUserDto>?> GetUserByName(string name) => _apiClient.GetAsyncByName<List<GetUserDto>>("api/users", name);
         public Task<HttpResponseMessage> CreateUser(CreateUserDto dto) => _apiClient.PostAsync("api/users", dto);
         public Task<HttpResponseMessage> UpdateUser(UpdateUserDto dto) => _apiClient.UpdateAsync("api/users", dto);
-        public Task<HttpResponseMessage> DeleteUser(string email) => _apiClient.DeleteAsync($"api/users?email={email}");
+        public Task<HttpResponseMessage> DeleteUser(string login) => _apiClient.DeleteAsync($"api/users?login={login}");
     }
 }

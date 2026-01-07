@@ -1,4 +1,5 @@
-﻿using FlowerShop.Dto.DTOGet;
+﻿using FlowerShop.Dto.DTOCreate;
+using FlowerShop.Dto.DTOGet;
 using FlowerShop.WpfClient.ApiClient;
 using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
@@ -6,6 +7,7 @@ using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -79,6 +81,28 @@ namespace FlowerShop.WpfClient.ViewModel
 
             CreateCommand = new RelayCommand(_ => Create());
             EditCommand = new RelayCommand(_ => Edit(), _ => SelectedOrder != null);
+            DeleteCommand = new RelayCommand(_ => DeleteOrder());
+        }
+
+        private async Task DeleteOrder()
+        {
+            if(SelectedOrder != null)
+            {
+                var respone = await _orderApi.DeleteOrder(SelectedOrder.Id);
+
+                var body = await respone.Content.ReadAsStringAsync();
+
+                if(respone.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Заказ успешно удален.");
+                }
+                await LoadAsync();
+            }
         }
 
         private void OnOrdersUpdated(List<GetOrderDto>? orders)
@@ -137,15 +161,35 @@ namespace FlowerShop.WpfClient.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void Create()
+        private async Task Create()
         {
             var vm = new OrderEditViewModel();
             var ok = _dialog.ShowDialog(vm);
 
-            if (ok == true)
+            if (ok != true) return;
+
+            try
             {
-                // собрать DTO из vm и вызвать API Create
-                // потом LoadAsync()
+                var dto = new CreateOrderDto(
+                    Guid.NewGuid(),
+                    vm.Date,
+                    vm.TotalPrice,
+                    vm.Status,
+                    null);
+
+                var respone = await _orderApi.CreateOrder(dto);
+                var body = await respone.Content.ReadAsStringAsync();
+
+                if (respone.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+                await LoadAsync();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при создании заказа.");
             }
         }
 

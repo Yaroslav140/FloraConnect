@@ -13,6 +13,18 @@
         <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status}" Margin="0,0,0,12"/>
 
         <TextBlock Text="Дата" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
-        <DatePicker SelectedDate="{Binding Date}" />
+        <DatePicker SelectedDate="{Binding Date}" Margin="0,0,0,12"/>
+
+        <GridSplitter Background="Black" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
+
+        <TextBlock Text="Добавить букет" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Выбор букета" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <ComboBox ItemsSource="{Binding Bouquets}" SelectedItem="{Binding Bouquet}" Margin="0,0,0,6"/>
+
+        <TextBlock Text="Количество" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <DockPanel>
+            <TextBox Text="{Binding Stock, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}" DockPanel.Dock="Left" HorizontalAlignment="Stretch" Margin="0,0,60,0"/>
+            <Button Content="+  Добавить" DockPanel.Dock="Right" HorizontalAlignment="Stretch"/>
+        </DockPanel>
     </StackPanel>
 </UserControl>

@@ -14,7 +14,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public string OkText => IsEdit ? "Сохранить" : "Добавить";
 
         public string CustomerName { get; set; } = "";
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; } = decimal.Zero;
         public OrderStatus Status { get; set; } = OrderStatus.New;
         public DateTime Date { get; set; } = DateTime.Today;
 
@@ -37,6 +37,7 @@ namespace FlowerShop.WpfClient.ViewModel
             IsEdit = true;
 
             CustomerName = existing.UserName;
+            Status = existing.Status;
 
             OkCommand = new RelayCommand(_ => RequestClose?.Invoke(true));
             CancelCommand = new RelayCommand(_ => RequestClose?.Invoke(false));

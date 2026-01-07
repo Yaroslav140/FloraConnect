@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -82,7 +83,30 @@ namespace FlowerShop.WpfClient.ViewModel
             _pollingService.Start();
             CreateCommand = new RelayCommand(_ => Create());
             EditCommand = new RelayCommand(p => Edit(p as GetUserDto), p => p is GetUserDto);
+            DeleteCommand = new RelayCommand(_ => DeleteUser());
         }
+
+        private async Task DeleteUser()
+        {
+            if(SelectedUser != null)
+            {
+                var respone = await _userApi.DeleteUser(SelectedUser.Login);
+
+                var body = await respone.Content.ReadAsStringAsync();
+                if(respone.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Пользовтаель успешно удален.");
+
+                }
+                 await LoadAsync();
+            }
+        }
+
         private void OnUsersUpdated(List<GetUserDto>? users)
         {
             if (users != null)
@@ -164,7 +188,7 @@ namespace FlowerShop.WpfClient.ViewModel
             }
             catch
             {
-                MessageBox.Show("Ошибка при создании пользователя");
+                MessageBox.Show("Ошибка при создании пользователя.");
             }
         }
 

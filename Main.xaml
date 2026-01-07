@@ -82,11 +82,11 @@
                                                     <Image Source="/Image/view.png" Width="16" Height="16"/>
                                                 </Button>
 
-                                                <Button Style="{StaticResource ActionButton}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <Image Source="/Image/edit.png" Width="16" Height="16"/>
                                                 </Button>
 
-                                                <Button Style="{StaticResource ActionButton}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <Image Source="/Image/delete.png" Width="16" Height="16"/>
                                                 </Button>
                                             </StackPanel>
@@ -137,7 +137,9 @@
                                                 <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.UsersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
                                                     <Image Source="/Image/edit.png" Width="16" Height="16"/>
                                                 </Button>
-                                                <Button Content="Удалить" Margin="2"/>
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.UsersVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                    <Image Source="/Image/delete.png" Width="16" Height="16"/>
+                                                </Button>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
