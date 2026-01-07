@@ -32,6 +32,9 @@
           "net9.0-windows7.0": {
             "targetAlias": "net9.0-windows",
             "projectReferences": {
+              "C:\\Users\\param\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj": {
+                "projectPath": "C:\\Users\\param\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj"
+              },
               "C:\\Users\\param\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj": {
                 "projectPath": "C:\\Users\\param\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj"
               }

@@ -139,7 +139,7 @@ namespace FlowerShop.WpfClient.ViewModel
         }
         private void Create()
         {
-            var vm = new OrderEditViewModel(isEdit: false);
+            var vm = new OrderEditViewModel();
             var ok = _dialog.ShowDialog(vm);
 
             if (ok == true)
@@ -153,7 +153,7 @@ namespace FlowerShop.WpfClient.ViewModel
         {
             if (SelectedOrder == null) return;
 
-            var vm = new OrderEditViewModel(isEdit: true /*, existing: SelectedOrder */);
+            var vm = new OrderEditViewModel();
             var ok = _dialog.ShowDialog(vm);
 
             if (ok == true)

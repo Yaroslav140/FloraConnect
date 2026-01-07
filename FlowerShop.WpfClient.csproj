@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FlowerShop.Data\FlowerShop.Data.csproj" />
     <ProjectReference Include="..\FlowerShop.Dto\FlowerShop.Dto.csproj" />
   </ItemGroup>
 

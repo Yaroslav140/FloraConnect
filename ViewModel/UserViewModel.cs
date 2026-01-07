@@ -1,4 +1,5 @@
-﻿using FlowerShop.Dto.DTOGet;
+﻿using FlowerShop.Dto.DTOCreate;
+using FlowerShop.Dto.DTOGet;
 using FlowerShop.Dto.DTOUpdate;
 using FlowerShop.WpfClient.ApiClient;
 using FlowerShop.WpfClient.Services;
@@ -136,17 +137,37 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        private void Create()
+        private async void Create()
         {
-            var vm = new UserEditViewModel();
+            var vm = new UserEditViewModel(); 
             var ok = _dialog.ShowDialog(vm);
 
-            if (ok == true)
+            if (ok != true) return;
+
+            try
             {
-                // собрать DTO из vm и вызвать API Create
-                // потом LoadAsync()
+                var dto = new CreateUserDto(
+                    vm.Username,
+                    vm.Login,
+                    vm.Login
+                );
+
+                var respone = await _userApi.CreateUser(dto);
+                var body = await respone.Content.ReadAsStringAsync();
+
+                if(respone.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+                await LoadAsync();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при создании пользователя");
             }
         }
+
 
         private async void Edit(GetUserDto? user)
         {

@@ -9,6 +9,7 @@
       "FlowerShop.WpfClient/1.0.0": {
         "dependencies": {
           "CommunityToolkit.Mvvm": "8.4.0",
+          "FlowerShop.Data": "1.0.0",
           "FlowerShop.Dto": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.8",
           "Microsoft.Extensions.Hosting.Abstractions": "9.0.10"
