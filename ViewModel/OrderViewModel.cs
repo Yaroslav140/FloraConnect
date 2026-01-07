@@ -168,8 +168,8 @@ namespace FlowerShop.WpfClient.ViewModel
             if(bouquets == null) return;
             foreach (var b in bouquets)
                 vm.Bouquets.Add(b);
-            var items = vm.BuildCreateItems();
             var ok = _dialog.ShowDialog(vm);
+            var items = vm.BuildCreateItems();
 
             if (ok != true) return;
 
@@ -189,6 +189,10 @@ namespace FlowerShop.WpfClient.ViewModel
                 {
                     MessageBox.Show(body);
                     return;
+                }
+                else
+                {
+                    MessageBox.Show("Заказ увспешно создан.");
                 }
                 await LoadAsync();
             }
