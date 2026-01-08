@@ -7,6 +7,7 @@ using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -177,6 +178,7 @@ namespace FlowerShop.WpfClient.ViewModel
             {
                 var dto = new CreateOrderDto(
                     Guid.NewGuid(),
+                    vm.CustomerName,
                     vm.Date,
                     vm.TotalPrice,
                     vm.Status,
@@ -202,37 +204,50 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        private async void Edit(GetOrderDto? order)
+        private async Task Edit(GetOrderDto? order)
         {
             if (order == null) return;
 
             var vm = new OrderEditViewModel(order);
 
             var bouquets = await _bouquetApi.GetAllBouquets();
-            vm.Bouquets.Clear();
             if (bouquets == null) return;
+
+            vm.Bouquets.Clear();
             foreach (var b in bouquets)
                 vm.Bouquets.Add(b);
-            var items = vm.BuildUpdateItems();
 
             var ok = _dialog.ShowDialog(vm);
+            if (ok != true) return;
 
-            if (ok == true)
+            try
             {
-                try
+                var pickDateTime = vm.Date.Date;
+
+                var items = vm.BuildUpdateItems();
+
+                var response = await _orderApi.UpdateOrder(new UpdateOrderDto(
+                    order.Id,
+                    vm.Status,
+                    pickDateTime,
+                    items));
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    await _orderApi.UpdateOrder(new UpdateOrderDto(
-                        order.Id,
-                        order.Status,
-                        items));
-                    await LoadAsync();
+                    MessageBox.Show(body);
+                    return;
                 }
-                catch
-                {
-                    MessageBox.Show("Ошибка при обновлении заказа");
-                }
+
+                MessageBox.Show("Заказ успешно обновлен.");
+                await LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при обновлении заказа: " + ex.Message);
             }
         }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
