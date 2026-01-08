@@ -64,6 +64,7 @@ namespace FlowerShop.WpfClient.ViewModel
 
         private readonly IDialogService _dialog;
         public ICommand SearchCommand { get; }
+        public ICommand ViewCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -86,6 +87,16 @@ namespace FlowerShop.WpfClient.ViewModel
             CreateCommand = new RelayCommand(_ => Create());
             EditCommand = new RelayCommand(p => Edit(p as GetOrderDto), p => p is GetOrderDto);
             DeleteCommand = new RelayCommand(_ => DeleteOrder());
+            ViewCommand = new RelayCommand(p => ViewDetails(p as GetOrderDto), p => p is GetOrderDto);
+        }
+
+        private void ViewDetails(GetOrderDto? order)
+        {
+            if (order == null) return;
+
+            var vm = new OrderDetailsViewModel(order);
+
+            _dialog.ShowDialog(vm);
         }
 
         private async Task DeleteOrder()

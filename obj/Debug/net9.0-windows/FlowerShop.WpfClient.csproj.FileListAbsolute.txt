@@ -118,10 +118,12 @@ C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\Buttons.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\DataGrid.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\Main.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\EntityDialogWindow.baml
+C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderDetailsFormView.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderFormView.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\UserFormView.baml
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Main.g.cs
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\EntityDialogWindow.g.cs
+C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderDetailsFormView.g.cs
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderFormView.g.cs
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\UserFormView.g.cs
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\App.g.cs

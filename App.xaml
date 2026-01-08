@@ -19,6 +19,10 @@
             <DataTemplate DataType="{x:Type vm:UserEditViewModel}">
                 <forms:UserFormView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:OrderDetailsViewModel}">
+                <forms:OrderDetailsFormView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
