@@ -5,11 +5,10 @@ using FlowerShop.WpfClient.ApiClient;
 using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
+using FlowerShop.WpfClient.ViewModel.Edits;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -72,7 +71,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public UserViewModel(UserApi userApi, IDialogService dialog)
         {
             _userApi = userApi ?? throw new ArgumentNullException(nameof(userApi));
-            Users = new ObservableCollection<GetUserDto>();
+            Users = [];
 
             _pollingService = new UserPollingService(_userApi, OnUsersUpdated, TimeSpan.FromSeconds(10));
 
@@ -83,28 +82,7 @@ namespace FlowerShop.WpfClient.ViewModel
             _pollingService.Start();
             CreateCommand = new RelayCommand(_ => Create());
             EditCommand = new RelayCommand(p => Edit(p as GetUserDto), p => p is GetUserDto);
-            DeleteCommand = new RelayCommand(_ => DeleteUser());
-        }
-
-        private async Task DeleteUser()
-        {
-            if(SelectedUser != null)
-            {
-                var respone = await _userApi.DeleteUser(SelectedUser.Login);
-
-                var body = await respone.Content.ReadAsStringAsync();
-                if(respone.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    MessageBox.Show(body);
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Пользовтаель успешно удален.");
-
-                }
-                 await LoadAsync();
-            }
+            DeleteCommand = new RelayCommand(_ => _ = DeleteUserAsync(), _ => SelectedUser != null);
         }
 
         private void OnUsersUpdated(List<GetUserDto>? users)
@@ -136,7 +114,7 @@ namespace FlowerShop.WpfClient.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при поиске пользователя");
+                MessageBox.Show("Ошибка при поиске пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             _pollingService.Start();
         }
@@ -157,7 +135,7 @@ namespace FlowerShop.WpfClient.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при загрузке пользователей");
+                MessageBox.Show($"Ошибка при загрузке пользователей. {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -176,19 +154,20 @@ namespace FlowerShop.WpfClient.ViewModel
                     vm.Login
                 );
 
-                var respone = await _userApi.CreateUser(dto);
-                var body = await respone.Content.ReadAsStringAsync();
+                var response = await _userApi.CreateUser(dto);
+                var body = await response.Content.ReadAsStringAsync();
 
-                if(respone.StatusCode == System.Net.HttpStatusCode.Conflict)
+                if (!response.IsSuccessStatusCode)
                 {
                     MessageBox.Show(body);
                     return;
                 }
+                MessageBox.Show("Пользователь успешно создан.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadAsync();
             }
             catch
             {
-                MessageBox.Show("Ошибка при создании пользователя.");
+                MessageBox.Show("Ошибка при создании пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -204,19 +183,50 @@ namespace FlowerShop.WpfClient.ViewModel
             {
                 try
                 {
-                    await _userApi.UpdateUser(new UpdateUserDto(
+                    var response = await _userApi.UpdateUser(new UpdateUserDto(
                         user.UserId,
                         vm.Username,
                         vm.Login,
                         null,
                         null));
+                    var body = await response.Content.ReadAsStringAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show(body);
+                        return;
+                    }
 
+                    MessageBox.Show("Данные пользователя успешно обновленены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     await LoadAsync();
                 }
                 catch
                 {
-                    MessageBox.Show("Ошибка при обновлении пользователя");
+                    MessageBox.Show("Ошибка при обновлении пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private async Task DeleteUserAsync()
+        {
+            if (SelectedUser == null) return;
+
+            try
+            {
+                var response = await _userApi.DeleteUser(SelectedUser.Login);
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+
+                MessageBox.Show("Пользователь успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                await LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении пользователя: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

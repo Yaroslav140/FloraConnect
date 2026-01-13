@@ -1,5 +1,6 @@
 ﻿using FlowerShop.Dto.DTOCreate;
 using FlowerShop.Dto.DTOGet;
+using FlowerShop.Dto.DTOUpdate;
 using System.Net.Http;
 
 namespace FlowerShop.WpfClient.ApiClient
@@ -13,6 +14,7 @@ namespace FlowerShop.WpfClient.ApiClient
 
         public Task<HttpResponseMessage> CreateBouquet(CreateBouquetDto dto) => _apiClient.PostAsync("api/bouquets", dto);
 
+        public Task<HttpResponseMessage> UpdateBouquet(Guid Id, UpdateBouquetDto dto) => _apiClient.UpdateAsync($"api/bouquets/{Id}", dto);
         public Task<HttpResponseMessage> DeleteBouquet(string name) => _apiClient.DeleteAsync($"api/bouquets?name={name}");
     }
 }

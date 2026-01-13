@@ -4,7 +4,7 @@ using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.ViewModel.Base;
 using System.Windows.Input;
 
-namespace FlowerShop.WpfClient.ViewModel
+namespace FlowerShop.WpfClient.ViewModel.Edits
 {
     public sealed class UserEditViewModel : IRequestClose
     {

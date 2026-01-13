@@ -5,6 +5,7 @@ using FlowerShop.WpfClient.ApiClient;
 using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
+using FlowerShop.WpfClient.ViewModel.Edits;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -22,7 +23,7 @@ namespace FlowerShop.WpfClient.ViewModel
         private readonly IDialogService _dialog;
         private readonly OrderPollingService _pollingService;
 
-        private ObservableCollection<GetOrderDto> _orders = new();
+        private ObservableCollection<GetOrderDto> _orders = [];
         public ObservableCollection<GetOrderDto> Orders
         {
             get => _orders;
@@ -100,7 +101,7 @@ namespace FlowerShop.WpfClient.ViewModel
             }
             catch
             {
-                MessageBox.Show("Ошибка при загрузке заказов");
+                MessageBox.Show("Ошибка при загрузке заказов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -116,13 +117,11 @@ namespace FlowerShop.WpfClient.ViewModel
                 }
 
                 var orders = await _orderApi.GetOrdersByName(SearchText);
-                Orders = orders != null
-                    ? new ObservableCollection<GetOrderDto>(orders)
-                    : new ObservableCollection<GetOrderDto>();
+                Orders = orders != null ? new ObservableCollection<GetOrderDto>(orders) : [];
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при поиске заказа: " + ex.Message);
+                MessageBox.Show("Ошибка при поиске заказа: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -146,6 +145,7 @@ namespace FlowerShop.WpfClient.ViewModel
             var dto = new CreateOrderDto(
                 Guid.NewGuid(),
                 vm.CustomerName,
+                vm.Login,
                 DateTime.SpecifyKind(vm.Date.Date, DateTimeKind.Utc),
                 vm.TotalPrice,
                 vm.Status,
@@ -163,12 +163,12 @@ namespace FlowerShop.WpfClient.ViewModel
                     return;
                 }
 
-                MessageBox.Show("Заказ успешно создан.");
+                MessageBox.Show("Заказ успешно создан.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadAsync();
             }
             catch
             {
-                MessageBox.Show("Ошибка при создании заказа.");
+                MessageBox.Show("Ошибка при создании заказа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -208,12 +208,12 @@ namespace FlowerShop.WpfClient.ViewModel
                     return;
                 }
 
-                MessageBox.Show("Заказ успешно обновлён.");
+                MessageBox.Show("Заказ успешно обновлён.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при редактировании заказа: " + ex.Message);
+                MessageBox.Show("Ошибка при редактировании заказа: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -236,12 +236,12 @@ namespace FlowerShop.WpfClient.ViewModel
                     return;
                 }
 
-                MessageBox.Show("Заказ успешно удален.");
+                MessageBox.Show("Заказ успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при удалении заказа: " + ex.Message);
+                MessageBox.Show("Ошибка при удалении заказа: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

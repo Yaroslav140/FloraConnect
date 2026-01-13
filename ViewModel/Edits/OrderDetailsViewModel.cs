@@ -5,7 +5,7 @@ using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace FlowerShop.WpfClient.ViewModel
+namespace FlowerShop.WpfClient.ViewModel.Edits
 {
     public sealed class OrderDetailsViewModel : IRequestClose
     {

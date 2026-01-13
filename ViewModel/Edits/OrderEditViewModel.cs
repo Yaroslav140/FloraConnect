@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
-namespace FlowerShop.WpfClient.ViewModel
+namespace FlowerShop.WpfClient.ViewModel.Edits
 {
     public sealed class OrderEditViewModel : IRequestClose, INotifyPropertyChanged
     {
@@ -20,6 +20,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public string OkText => IsEdit ? "Сохранить" : "Добавить";
 
         public string CustomerName { get; set; } = "";
+        public string Login { get; set; } = "";
         public OrderStatus Status { get; set; } = OrderStatus.New;
         public DateTime Date { get; set; } = DateTime.Today;
 

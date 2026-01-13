@@ -3,18 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <StackPanel Width="420">
-        <TextBlock Text="Имя заказчика" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Логин заказчика" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,6" Style="{StaticResource FormsBox}"/>
+        <TextBlock Text="Оставьте поле пустым если пользотель не зарегестрирован" Margin="0,0,0,6" Foreground="{StaticResource FgMuted}" FontSize="10"/>
+
+        <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
+
+        <TextBlock Text="Имя заказчика" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
         <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
 
-        <TextBlock Text="Статус" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Статус" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
         <ComboBox ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status}" Margin="0,0,0,12"/>
 
-        <TextBlock Text="Дата" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Дата" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
         <DatePicker SelectedDate="{Binding Date}" Margin="0,0,0,12"/>
 
         <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
 
-        <TextBlock Text="Добавить букет" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Добавить букет" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}" />
         <TextBlock Text="Выбор букета" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
         <ComboBox ItemsSource="{Binding Bouquets}"
           SelectedItem="{Binding SelectedBouquet}"
@@ -31,7 +37,7 @@
         </ComboBox>
 
 
-        <TextBlock Text="Количество" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Количество" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
         <DockPanel Margin="0,0,0,12">
             <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}" HorizontalAlignment="Stretch" Width="120" Margin="0,0,60,0"/>
             <Button Content="+  Добавить" DockPanel.Dock="Right" Command="{Binding AddBouquetCommand}" HorizontalAlignment="Right" Style="{StaticResource AddButton}"/>

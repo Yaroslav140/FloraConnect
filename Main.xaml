@@ -167,12 +167,11 @@
                             <TextBlock Text="Управление букетами" FontSize="20" Foreground="{StaticResource FgMuted}" DockPanel.Dock="Bottom"/>
                         </StackPanel>
                         <DockPanel HorizontalAlignment="Right">
-                            <Button x:Name="AddBoquet" Content="+    Добавить букет" Style="{StaticResource AddButton}"/>
+                            <Button x:Name="AddBoquet" Content="+    Добавить букет" Style="{StaticResource AddButton}" Command="{Binding BouquetsVM.CreateCommand}"/>
                         </DockPanel>
                     </DockPanel>
                     <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
-                        <DataGrid ItemsSource="{Binding BouquetsVM.Bouquets}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
+                        <DataGrid ItemsSource="{Binding BouquetsVM.Bouquets}" SelectedItem="{Binding BouquetsVM.SelectedBouquet, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Картинка" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
