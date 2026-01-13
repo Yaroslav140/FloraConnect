@@ -7,149 +7,86 @@ using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace FlowerShop.WpfClient.ViewModel
 {
-    public class OrderViewModel : IViewModelBase, INotifyPropertyChanged, IDisposable
+    public sealed class OrderViewModel : IViewModelBase, INotifyPropertyChanged, IDisposable
     {
         public string Title => "Заказы";
 
         private readonly OrderApi _orderApi;
         private readonly BouquetApi _bouquetApi;
-        private ObservableCollection<GetOrderDto> _orders;
+        private readonly IDialogService _dialog;
+        private readonly OrderPollingService _pollingService;
 
+        private ObservableCollection<GetOrderDto> _orders = new();
         public ObservableCollection<GetOrderDto> Orders
         {
             get => _orders;
-            set
-            {
-                if(!Equals(value, _orders))
-                {
-                    _orders = value;
-                    OnPropertyChanged();
-                }
-            }
+            private set { _orders = value; OnPropertyChanged(); }
         }
+
         private string? _searchText;
         public string? SearchText
         {
             get => _searchText;
-            set
-            {
-                if (!Equals(_searchText, value))
-                {
-                    _searchText = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { _searchText = value; OnPropertyChanged(); }
         }
+
         private GetOrderDto? _selectedOrder;
         public GetOrderDto? SelectedOrder
         {
             get => _selectedOrder;
             set
             {
-                if (!Equals(_selectedOrder, value))
-                {
-                    _selectedOrder = value;
-                    OnPropertyChanged();
-                }
+                _selectedOrder = value;
+                OnPropertyChanged();
+                (EditCommand as RelayCommand)?.RaiseCanExecuteChanged();
+                (DeleteCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
 
-        private readonly IDialogService _dialog;
         public ICommand SearchCommand { get; }
         public ICommand ViewCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        private readonly OrderPollingService _pollingService;
         public OrderViewModel(OrderApi orderApi, BouquetApi bouquetApi, IDialogService dialog)
         {
             _orderApi = orderApi ?? throw new ArgumentNullException(nameof(orderApi));
-            Orders = new ObservableCollection<GetOrderDto>();
+            _bouquetApi = bouquetApi ?? throw new ArgumentNullException(nameof(bouquetApi));
+            _dialog = dialog ?? throw new ArgumentNullException(nameof(dialog));
+
+            SearchCommand = new RelayCommand(_ => _ = SearchOrderAsync());
+            ViewCommand = new RelayCommand(p => ViewDetails(p as GetOrderDto), p => p is GetOrderDto);
+            CreateCommand = new RelayCommand(_ => _ = CreateAsync());
+            EditCommand = new RelayCommand(_ => _ = EditOrderAsync(), _ => SelectedOrder != null);
+            DeleteCommand = new RelayCommand(_ => _ = DeleteOrderAsync(), _ => SelectedOrder != null);
 
             _pollingService = new OrderPollingService(_orderApi, OnOrdersUpdated, TimeSpan.FromSeconds(10));
-            SearchCommand = new RelayCommand(_ => SearchOrderAsync());
-            _ = LoadAsync();
-
             _pollingService.Start();
-            _orderApi = orderApi;
-            _bouquetApi = bouquetApi;
-            _dialog = dialog;
 
-            CreateCommand = new RelayCommand(_ => Create());
-            EditCommand = new RelayCommand(p => Edit(p as GetOrderDto), p => p is GetOrderDto);
-            DeleteCommand = new RelayCommand(_ => DeleteOrder());
-            ViewCommand = new RelayCommand(p => ViewDetails(p as GetOrderDto), p => p is GetOrderDto);
+            _ = LoadAsync();
         }
 
         private void ViewDetails(GetOrderDto? order)
         {
             if (order == null) return;
-
-            var vm = new OrderDetailsViewModel(order);
-
-            _dialog.ShowDialog(vm);
-        }
-
-        private async Task DeleteOrder()
-        {
-            if(SelectedOrder != null)
-            {
-                var respone = await _orderApi.DeleteOrder(SelectedOrder.Id);
-
-                var body = await respone.Content.ReadAsStringAsync();
-
-                if(respone.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    MessageBox.Show(body);
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Заказ успешно удален.");
-                }
-                await LoadAsync();
-            }
+            _dialog.ShowDialog(new OrderDetailsViewModel(order));
         }
 
         private void OnOrdersUpdated(List<GetOrderDto>? orders)
         {
-            if (orders != null)
+            if (orders == null) return;
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 Orders = new ObservableCollection<GetOrderDto>(orders);
-            }
-        }
-
-        private async void SearchOrderAsync()
-        {
-            _pollingService.Stop();
-            if (string.IsNullOrWhiteSpace(_searchText))
-            {
-                await LoadAsync();
-                _pollingService.Start();
-                return;
-            }
-            try
-            {
-                var order = await _orderApi.GetOrdersByName(_searchText);
-                if(order != null)
-                {
-                    Orders = new ObservableCollection<GetOrderDto>(order);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка при поиске заказа");
-            }
-            _pollingService.Start();
+            });
         }
 
         public async Task LoadAsync()
@@ -157,56 +94,76 @@ namespace FlowerShop.WpfClient.ViewModel
             try
             {
                 var orders = await _orderApi.GetAllOrders();
-                if (orders != null)
-                {
-                    Orders = new ObservableCollection<GetOrderDto>(orders);
-                }
-                else
-                {
-                    Orders.Clear();
-                }
+                Orders = orders != null
+                    ? new ObservableCollection<GetOrderDto>(orders)
+                    : new ObservableCollection<GetOrderDto>();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Ошибка при загрузке заказов");
             }
         }
-        private async Task Create()
+
+        private async Task SearchOrderAsync()
+        {
+            _pollingService.Stop();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(SearchText))
+                {
+                    await LoadAsync();
+                    return;
+                }
+
+                var orders = await _orderApi.GetOrdersByName(SearchText);
+                Orders = orders != null
+                    ? new ObservableCollection<GetOrderDto>(orders)
+                    : new ObservableCollection<GetOrderDto>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при поиске заказа: " + ex.Message);
+            }
+            finally
+            {
+                _pollingService.Start();
+            }
+        }
+
+        private async Task CreateAsync()
         {
             var vm = new OrderEditViewModel();
 
             var bouquets = await _bouquetApi.GetAllBouquets();
-            vm.Bouquets.Clear();
-            if(bouquets == null) return;
-            foreach (var b in bouquets)
-                vm.Bouquets.Add(b);
-            var ok = _dialog.ShowDialog(vm);
-            var items = vm.BuildCreateItems();
+            if (bouquets == null) return;
 
+            vm.Bouquets.Clear();
+            foreach (var b in bouquets) vm.Bouquets.Add(b);
+
+            var ok = _dialog.ShowDialog(vm);
             if (ok != true) return;
+
+            var dto = new CreateOrderDto(
+                Guid.NewGuid(),
+                vm.CustomerName,
+                DateTime.SpecifyKind(vm.Date.Date, DateTimeKind.Utc),
+                vm.TotalPrice,
+                vm.Status,
+                vm.BuildCreateItems()
+            );
 
             try
             {
-                var dto = new CreateOrderDto(
-                    Guid.NewGuid(),
-                    vm.CustomerName,
-                    vm.Date,
-                    vm.TotalPrice,
-                    vm.Status,
-                    items);
+                var response = await _orderApi.CreateOrder(dto);
+                var body = await response.Content.ReadAsStringAsync();
 
-                var respone = await _orderApi.CreateOrder(dto);
-                var body = await respone.Content.ReadAsStringAsync();
-
-                if (respone.StatusCode == System.Net.HttpStatusCode.Conflict)
+                if (!response.IsSuccessStatusCode)
                 {
                     MessageBox.Show(body);
                     return;
                 }
-                else
-                {
-                    MessageBox.Show("Заказ увспешно создан.");
-                }
+
+                MessageBox.Show("Заказ успешно создан.");
                 await LoadAsync();
             }
             catch
@@ -215,55 +172,83 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        private async Task Edit(GetOrderDto? order)
+        private async Task EditOrderAsync()
         {
-            if (order == null) return;
+            if (SelectedOrder == null) return;
 
-            var vm = new OrderEditViewModel(order);
-
-            var bouquets = await _bouquetApi.GetAllBouquets();
-            if (bouquets == null) return;
-
-            vm.Bouquets.Clear();
-            foreach (var b in bouquets)
-                vm.Bouquets.Add(b);
-
-            var ok = _dialog.ShowDialog(vm);
-            if (ok != true) return;
-
+            _pollingService.Stop();
             try
             {
-                var pickDateTime = vm.Date.Date;
+                var vm = new OrderEditViewModel(SelectedOrder);
 
-                var items = vm.BuildUpdateItems();
+                var bouquets = await _bouquetApi.GetAllBouquets();
+                if (bouquets == null) return;
 
-                var response = await _orderApi.UpdateOrder(new UpdateOrderDto(
-                    order.Id,
+                vm.Bouquets.Clear();
+                foreach (var b in bouquets) vm.Bouquets.Add(b);
+
+                var ok = _dialog.ShowDialog(vm);
+                if (ok != true) return;
+
+                var dto = new UpdateOrderDto(
+                    SelectedOrder.Id,
+                    vm.CustomerName,
+                    DateTime.SpecifyKind(vm.Date.Date, DateTimeKind.Utc),
                     vm.Status,
-                    pickDateTime,
-                    items));
+                    vm.TotalPrice,
+                    vm.BuildUpdateItems()
+                );
+
+                var response = await _orderApi.UpdateOrder(dto);
                 var body = await response.Content.ReadAsStringAsync();
 
-                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                if (!response.IsSuccessStatusCode)
                 {
                     MessageBox.Show(body);
                     return;
                 }
 
-                MessageBox.Show("Заказ успешно обновлен.");
+                MessageBox.Show("Заказ успешно обновлён.");
                 await LoadAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при обновлении заказа: " + ex.Message);
+                MessageBox.Show("Ошибка при редактировании заказа: " + ex.Message);
+            }
+            finally
+            {
+                _pollingService.Start();
+            }
+        }
+
+        private async Task DeleteOrderAsync()
+        {
+            if (SelectedOrder == null) return;
+
+            try
+            {
+                var response = await _orderApi.DeleteOrder(SelectedOrder.Id);
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show(body);
+                    return;
+                }
+
+                MessageBox.Show("Заказ успешно удален.");
+                await LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении заказа: " + ex.Message);
             }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void Dispose() => _pollingService?.Stop();
+
+        public void Dispose() => _pollingService.Stop();
     }
 }

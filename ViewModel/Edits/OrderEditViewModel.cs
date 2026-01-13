@@ -7,7 +7,7 @@ using FlowerShop.WpfClient.ViewModel.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FlowerShop.WpfClient.ViewModel
@@ -88,51 +88,72 @@ namespace FlowerShop.WpfClient.ViewModel
             Date = Convert.ToDateTime(existing.PickupDate);
 
             OrderItems.Clear();
-            foreach (var it in existing.OrderItem)
+
+            if (existing.OrderItem != null)
             {
-                OrderItems.Add(new OrderItemVm
+                foreach (var it in existing.OrderItem)
                 {
-                    OrderItemId = it.OrderItemId,
-                    BouquetId = it.BouquetId,
-                    Bouquet = it.Bouquet,
-                    Quantity = it.Quantity,
-                    Price = it.Bouquet.Price
-                });
+                    OrderItems.Add(new OrderItemVm
+                    {
+                        OrderItemId = it.OrderItemId,
+                        BouquetId = it.BouquetId,
+                        Bouquet = it.Bouquet,
+                        Quantity = it.Quantity,
+                        Price = it.Price
+                    });
+                }
             }
+
+            OnPropertyChanged(nameof(TotalPrice));
         }
 
         private void AddBouquet()
         {
-            if (SelectedBouquet == null) return;
+            if (SelectedBouquet is null) return;
 
-            if (SelectedBouquet.Quantity <= 0)
+            if (Quantity <= 0)
+            {
+                MessageBox.Show("Количество должно быть больше 0.");
                 return;
+            }
+
+            var available = SelectedBouquet.Quantity;
+            if (available <= 0)
+            {
+                MessageBox.Show("Недостаточно букетов на складе.");
+                return;
+            }
 
             var item = OrderItems.FirstOrDefault(x => x.BouquetId == SelectedBouquet.BouquetId);
-            if (item == null)
+
+            if (item is null)
             {
-                var qty = Math.Min(Quantity, SelectedBouquet.Quantity);
+                var qtyToAdd = Math.Min(Quantity, available);
 
                 OrderItems.Add(new OrderItemVm
                 {
                     OrderItemId = null,
                     BouquetId = SelectedBouquet.BouquetId,
                     Bouquet = SelectedBouquet,
-                    Quantity = qty,
+                    Quantity = qtyToAdd,
                     Price = SelectedBouquet.Price
                 });
-            }
-            else
-            {
-                var canAdd = SelectedBouquet.Quantity - item.Quantity;
-                if (canAdd <= 0) return;
 
-                item.Quantity += Math.Min(Quantity, canAdd);
+                OnPropertyChanged(nameof(TotalPrice));
+                return;
             }
+
+            var canAdd = available - item.Quantity;
+            if (canAdd <= 0)
+            {
+                MessageBox.Show("Достигнут максимум доступного количества.");
+                return;
+            }
+
+            item.Quantity += Math.Min(Quantity, canAdd);
 
             OnPropertyChanged(nameof(TotalPrice));
         }
-
 
         private void RemoveBouquet()
         {
@@ -149,35 +170,62 @@ namespace FlowerShop.WpfClient.ViewModel
             (AddBouquetCommand as RelayCommand)?.RaiseCanExecuteChanged();
             (RemoveBouquetCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
-        public List<CreateOrderItemDto> BuildCreateItems() => [.. OrderItems.Select(x =>
-                new CreateOrderItemDto(
-                    x.BouquetId,
-                    null,
-                    x.Quantity,
-                    x.Price
-                ))];
-        public List<UpdateOrderItemDto> BuildUpdateItems() => [.. OrderItems
-                .Where(x => x.OrderItemId.HasValue)
-                .Select(x =>
-                    new UpdateOrderItemDto(
-                        x.OrderItemId!.Value,
-                        x.BouquetId,
-                        x.Quantity,
-                        x.Bouquet
-                    ))];
+
+        public List<CreateOrderItemDto> BuildCreateItems() =>
+            OrderItems.Select(x => new CreateOrderItemDto(
+                x.BouquetId,
+                null,
+                x.Quantity,
+                x.Price
+            )).ToList();
+
+        public List<UpdateOrderItemDto> BuildUpdateItems() =>
+            OrderItems.Select(x => new UpdateOrderItemDto(
+                x.OrderItemId,
+                x.BouquetId,
+                x.Quantity,
+                x.Price
+            )).ToList();
+
         private void OnPropertyChanged([CallerMemberName] string? n = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
     }
 
-    public sealed class OrderItemVm
+    public sealed class OrderItemVm : INotifyPropertyChanged
     {
         public Guid? OrderItemId { get; set; }
         public Guid BouquetId { get; set; }
         public GetBouquetDto Bouquet { get; set; } = null!;
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
+
+        private int _quantity;
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                _quantity = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(LineTotal));
+            }
+        }
+
+        private decimal _price;
+        public decimal Price
+        {
+            get => _price;
+            set
+            {
+                _price = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(LineTotal));
+            }
+        }
 
         public decimal LineTotal => Price * Quantity;
-    }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string? n = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
+    }
 }
