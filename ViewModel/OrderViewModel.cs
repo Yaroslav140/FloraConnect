@@ -50,7 +50,6 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        public ICommand SearchCommand { get; }
         public ICommand ViewCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
@@ -62,16 +61,15 @@ namespace FlowerShop.WpfClient.ViewModel
             _bouquetApi = bouquetApi ?? throw new ArgumentNullException(nameof(bouquetApi));
             _dialog = dialog ?? throw new ArgumentNullException(nameof(dialog));
 
-            SearchCommand = new RelayCommand(_ => _ = SearchOrderAsync());
             ViewCommand = new RelayCommand(p => ViewDetails(p as GetOrderDto), p => p is GetOrderDto);
             CreateCommand = new RelayCommand(_ => _ = CreateAsync());
             EditCommand = new RelayCommand(_ => _ = EditOrderAsync(), _ => SelectedOrder != null);
             DeleteCommand = new RelayCommand(_ => _ = DeleteOrderAsync(), _ => SelectedOrder != null);
+            _ = LoadAsync();
 
             _pollingService = new OrderPollingService(_orderApi, OnOrdersUpdated, TimeSpan.FromSeconds(10));
             _pollingService.Start();
 
-            _ = LoadAsync();
         }
 
         private void ViewDetails(GetOrderDto? order)
@@ -83,6 +81,8 @@ namespace FlowerShop.WpfClient.ViewModel
         private void OnOrdersUpdated(List<GetOrderDto>? orders)
         {
             if (orders == null) return;
+
+            if (!string.IsNullOrWhiteSpace(_searchText)) return;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -105,23 +105,23 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        private async Task SearchOrderAsync()
+        public async Task SearchOrderAsync()
         {
             _pollingService.Stop();
+
             try
             {
-                if (string.IsNullOrWhiteSpace(SearchText))
-                {
-                    await LoadAsync();
-                    return;
-                }
+                var orders = await _orderApi.GetOrdersByName(_searchText ?? "");
+                if(orders == null) return;
 
-                var orders = await _orderApi.GetOrdersByName(SearchText);
-                Orders = orders != null ? new ObservableCollection<GetOrderDto>(orders) : [];
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Orders = new ObservableCollection<GetOrderDto>(orders);
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при поиске заказа: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при поиске заказа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

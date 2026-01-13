@@ -62,7 +62,6 @@ namespace FlowerShop.WpfClient.ViewModel
         }
         private readonly IDialogService _dialog;
 
-        public ICommand SearchCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -75,7 +74,6 @@ namespace FlowerShop.WpfClient.ViewModel
 
             _pollingService = new UserPollingService(_userApi, OnUsersUpdated, TimeSpan.FromSeconds(10));
 
-            SearchCommand = new RelayCommand(_ => SearchUserAsync());
             _ = LoadAsync();
             _dialog = dialog;
 
@@ -87,36 +85,39 @@ namespace FlowerShop.WpfClient.ViewModel
 
         private void OnUsersUpdated(List<GetUserDto>? users)
         {
-            if (users != null)
+            if(users == null || users.Count == 0) { return; }
+
+            if(!string.IsNullOrWhiteSpace(_searchText)) return;
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 Users = new ObservableCollection<GetUserDto>(users);
-            }
+            });
         }
 
-        private async void SearchUserAsync()
+        public async Task SearchUserAsync()
         {
-            _pollingService.Stop(); 
-
-            if (string.IsNullOrWhiteSpace(_searchText))
-            {
-                await LoadAsync();
-                _pollingService.Start();
-                return;
-            }
+            _pollingService?.Stop();
 
             try
             {
-                var users = await _userApi.GetUserByName(_searchText);
+                var users = await _userApi.GetUserByName(_searchText ?? "");
                 if (users != null)
                 {
-                    Users = new ObservableCollection<GetUserDto>(users);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Users = new ObservableCollection<GetUserDto>(users);
+                    });
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при поиске пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при поиске пользователя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            _pollingService.Start();
+            finally
+            {
+                _pollingService?.Start();
+            }
         }
 
         public async Task LoadAsync()

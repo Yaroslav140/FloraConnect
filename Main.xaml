@@ -10,8 +10,7 @@
         Background="#212529"
         ResizeMode="NoResize">
     <Window.Resources>
-        <conv:WwwrootPathToImageConverter x:Key="ImgConv"
-                                      Wwwroot="C:\Users\param\repos\FlowerShop\wwwroot"/>
+        <conv:WwwrootPathToImageConverter x:Key="ImgConv" Wwwroot="C:\Users\param\repos\FlowerShop\wwwroot"/>
     </Window.Resources>
     <Grid Cursor="">
         <Grid.ColumnDefinitions>
@@ -32,16 +31,63 @@
         <StackPanel Grid.Row="1" Grid.RowSpan="3" Orientation="Vertical" Margin="10, 5, 10, 0">
             <RadioButton x:Name="OrdersView" GroupName="FlowerView" Content="Заказы" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsOrdersSelected, Mode=TwoWay}"/>
             <RadioButton x:Name="UsersView" GroupName="FlowerView" Content="Пользователи" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsUsersSelected, Mode=TwoWay}"/>
-            <RadioButton x:Name="BouquetsView" GroupName="FlowerView" Content="Букеты" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsBoquetsSelected, Mode=TwoWay}"/>
+            <RadioButton x:Name="BouquetsView" GroupName="FlowerView" Content="Букеты" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsBouquetsSelected, Mode=TwoWay}"/>
         </StackPanel>
 
         <DockPanel Grid.Column="1" Margin="20,15,20,20">
-            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#343a40" BorderThickness="1" BorderBrush="#495057"
-                    Margin="0,0,360, 0">
-                <TextBox x:Name="SearchBox" Background="Transparent" BorderBrush="Transparent" 
-                 Foreground="#ced4da" Padding="10" Text="Поиск"/>
+            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#343a40" 
+            BorderThickness="1" BorderBrush="#495057" Margin="0,0,360,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" 
+                       Text="Поиск..." 
+                       Foreground="#6c757d" 
+                       Padding="12,10" 
+                       FontStyle="Italic"
+                       IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SearchText}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SearchText}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBox Grid.Column="0"
+                     Background="Transparent" 
+                     BorderBrush="Transparent" 
+                     Foreground="#ced4da" 
+                     Padding="12,10"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Button Grid.Column="1" 
+                    Content="Поиск" 
+                    Command="{Binding SearchCommand}"
+                    Background="#495057"
+                    Foreground="#ced4da"
+                    BorderBrush="#6c757d"
+                    Padding="15,8"
+                    Margin="5,0,0,0"
+                    Cursor="Hand"/>
+                </Grid>
             </Border>
         </DockPanel>
+
         <Grid Grid.Column="1" Grid.Row="2" Background="{StaticResource BgMuted}">
             <Grid Margin="20" x:Name="OrderGrid">
                 <Grid.Style>

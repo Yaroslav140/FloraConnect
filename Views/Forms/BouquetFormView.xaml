@@ -13,8 +13,8 @@
         
         <TextBlock Text="Колличество на складе" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
         <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
-
-        <TextBlock Text="Url фото букета" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
-        <TextBox Text="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+        
+        <TextBlock Text="Фото букета" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}"/>
     </StackPanel>
 </UserControl>

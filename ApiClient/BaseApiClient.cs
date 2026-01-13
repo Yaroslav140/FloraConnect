@@ -22,7 +22,7 @@ namespace FlowerShop.WpfClient.ApiClient
 
         public async Task<T?> GetAsyncByName<T>(string url, string name)
         {
-            var fullUrl = $"{url}?name={Uri.EscapeDataString(name)}";
+            var fullUrl = $"{url}/search?name={Uri.EscapeDataString(name)}";
             return await _httpClient.GetFromJsonAsync<T>(fullUrl);
         }
 

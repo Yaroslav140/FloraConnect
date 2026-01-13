@@ -7,7 +7,6 @@ namespace FlowerShop.WpfClient.ViewModel.Base
         string Title { get; }
         string? SearchText { get; set; }
         Task LoadAsync();
-        ICommand SearchCommand { get; }
         ICommand CreateCommand { get; }
         ICommand EditCommand { get; }
         ICommand DeleteCommand { get; }

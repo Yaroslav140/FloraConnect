@@ -62,7 +62,6 @@ namespace FlowerShop.WpfClient.ViewModel
             }
         }
 
-        public ICommand SearchCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -73,7 +72,6 @@ namespace FlowerShop.WpfClient.ViewModel
             Bouquets = [];
             _dialog = dialog;
 
-            SearchCommand = new RelayCommand(_ => _ = SearchBouquetAsync());
             CreateCommand = new RelayCommand(_ => _ = CreateBouquetAsync());
             EditCommand = new RelayCommand(_ => _ = EditBouquetAsync(), _ => SelectedBouquet != null);
             DeleteCommand = new RelayCommand(_ => _ = DeleteBouquetAsync(), _ => SelectedBouquet != null);
@@ -87,36 +85,36 @@ namespace FlowerShop.WpfClient.ViewModel
         {
             if (bouquets == null) return;
 
+            if (!string.IsNullOrWhiteSpace(_searchText)) return;
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Bouquets = new ObservableCollection<GetBouquetDto>(bouquets);
             });
         }
 
-        private async Task SearchBouquetAsync()
+        public async Task SearchBouquetAsync()
         {
             _pollingService.Stop();
 
-            if (string.IsNullOrWhiteSpace(_searchText))
-            {
-                await LoadAsync();
-                _pollingService.Start();
-                return;
-            }
-
             try
             {
-                var boquets = await _bouquetApi.GetBoquetByName(_searchText);
-                if (boquets != null)
+                var bouquets = await _bouquetApi.GetBoquetByName(_searchText ?? "");
+                if (bouquets == null) return;
+
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Bouquets = new ObservableCollection<GetBouquetDto>(boquets);
-                }
+                    Bouquets = new ObservableCollection<GetBouquetDto>(bouquets);
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при поиске букета {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при поиске букета: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            _pollingService.Start();
+            finally
+            {
+                _pollingService.Start();
+            }
         }
 
         public async Task LoadAsync()
@@ -233,7 +231,7 @@ namespace FlowerShop.WpfClient.ViewModel
                     return;
                 }
 
-                MessageBox.Show("Заказ успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Букет успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadAsync();
             }
             catch (Exception ex)
