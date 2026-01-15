@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\param\\repos\\FloraConnect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\userapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\userapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\orderapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\orderapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\baseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\baseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\viewmodel\\orderviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:viewmodel\\orderviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,40 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserApi.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\UserApi.cs",
-              "RelativeDocumentMoniker": "ApiClient\\UserApi.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\UserApi.cs",
-              "RelativeToolTip": "ApiClient\\UserApi.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABeAAAAAAAAAA==",
+              "Title": "OrderViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\OrderViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\OrderViewModel.cs",
+              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ViewModel\\OrderViewModel.cs",
+              "RelativeToolTip": "ViewModel\\OrderViewModel.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAuwJsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T19:35:35.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderApi.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\OrderApi.cs",
-              "RelativeDocumentMoniker": "ApiClient\\OrderApi.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\OrderApi.cs",
-              "RelativeToolTip": "ApiClient\\OrderApi.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T19:35:19.566Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BaseApiClient.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\BaseApiClient.cs",
-              "RelativeDocumentMoniker": "ApiClient\\BaseApiClient.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\BaseApiClient.cs",
-              "RelativeToolTip": "ApiClient\\BaseApiClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBoAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T19:35:13.367Z",
+              "WhenOpened": "2026-01-15T17:16:23.567Z",
               "EditorCaption": ""
             }
           ]
