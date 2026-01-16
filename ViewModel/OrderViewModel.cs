@@ -146,7 +146,8 @@ namespace FlowerShop.WpfClient.ViewModel
                 Guid.NewGuid(),
                 vm.CustomerName,
                 vm.Login,
-                DateTime.SpecifyKind(vm.Date.Date, DateTimeKind.Utc),
+                DateTime.SpecifyKind(vm.Date, DateTimeKind.Utc),
+                vm.DeleveryAddress,
                 vm.TotalPrice,
                 vm.Status,
                 vm.BuildCreateItems()
@@ -194,6 +195,7 @@ namespace FlowerShop.WpfClient.ViewModel
                     SelectedOrder.Id,
                     vm.CustomerName,
                     DateTime.SpecifyKind(vm.Date.Date, DateTimeKind.Utc),
+                    vm.DeleveryAddress,
                     vm.Status,
                     vm.TotalPrice,
                     vm.BuildUpdateItems()
