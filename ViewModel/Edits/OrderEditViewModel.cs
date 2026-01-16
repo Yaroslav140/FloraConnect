@@ -25,8 +25,7 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
         public OrderStatus Status { get; set; } = OrderStatus.New;
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public IEnumerable<OrderStatus> Statuses =>
-            Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
+        public IEnumerable<OrderStatus> Statuses => Enum.GetValues<OrderStatus>().Cast<OrderStatus>();
 
         public ObservableCollection<GetBouquetDto> Bouquets { get; } = [];
 
@@ -86,6 +85,7 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
         {
             IsEdit = true;
             CustomerName = existing.UserName;
+            Login = existing.Login;
             DeleveryAddress = existing.DeliveryAddress;
             Status = existing.Status;
             Date = existing.PickupDate;
