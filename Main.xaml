@@ -111,35 +111,39 @@
                         </DockPanel>
                     </DockPanel>
                     <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
-                        <DataGrid ItemsSource="{Binding OrdersVM.Orders}" SelectedItem="{Binding OrdersVM.SelectedOrder, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
+                        <DataGrid ItemsSource="{Binding OrdersVM.Orders}" SelectedItem="{Binding OrdersVM.SelectedOrder, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Id заказа" Binding="{Binding Id}" Width="*"/>
-                                <DataGridTextColumn Header="Имя заказчика" Binding="{Binding UserName}" Width="Auto"/>
-                                <DataGridTextColumn Header="Цена" Binding="{Binding TotalAmount}" Width="Auto"/>
-                                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="Auto"/>
-                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding PickupDate}" Width="Auto"/>
-                                
-                                <DataGridTemplateColumn Header="Действия" Width="Auto">
+                                <DataGridTextColumn Header="Id заказа" Binding="{Binding Id}" Width="0.7*"/>
+                                <DataGridTextColumn Header="Имя заказчика" Binding="{Binding UserName}" Width="1*"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding TotalAmount}" Width="0.8*"/>
+                                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="1*"/>
+                                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding DeliveryAddress, TargetNullValue='-'}" Width="2.5*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextWrapping" Value="Wrap"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="4,2"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding PickupDate, StringFormat='dd.MM.yy HH:mm'}" Width="1*"/>
+                                <DataGridTemplateColumn Header="Действия" Width="1*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.ViewCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.ViewCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Margin="2,0">
                                                     <Image Source="/Image/view.png" Width="16" Height="16"/>
                                                 </Button>
-
-                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Margin="2,0">
                                                     <Image Source="/Image/edit.png" Width="16" Height="16"/>
                                                 </Button>
-
-                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.OrdersVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" Margin="2,0">
                                                     <Image Source="/Image/delete.png" Width="16" Height="16"/>
                                                 </Button>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-
                             </DataGrid.Columns>
                         </DataGrid>
                     </Border>
