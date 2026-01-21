@@ -6,13 +6,14 @@ namespace FlowerShop.WpfClient.ApiClient
     public sealed class BaseApiClient : IDisposable
     {
         private readonly HttpClient _httpClient;
-
+        private const string ApiKey = "CLG*FPAf$_3^!bTo92PAsBFjbx%68u";
         public BaseApiClient()
         {
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:7241/")
             };
+            _httpClient.DefaultRequestHeaders.Add("X-API-Key", ApiKey);
         }
 
         public async Task<T?> GetAsync<T>(string url)
