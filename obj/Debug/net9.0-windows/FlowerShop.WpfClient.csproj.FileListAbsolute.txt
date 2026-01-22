@@ -31,7 +31,6 @@ C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Main.baml
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\Buttons.baml
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\DataGrid.baml
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\Main.baml
-C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Styles\TextBox.baml
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Main.g.cs
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\FlowerShop.WpfClient_MarkupCompile.cache
@@ -146,3 +145,14 @@ C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\refint\FlowerShop.Wpf
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\FlowerShop.WpfClient.pdb
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\FlowerShop.WpfClient.genruntimeconfig.cache
 C:\Users\param\repos\FloraConnect\obj\Debug\net9.0-windows\ref\FlowerShop.WpfClient.dll
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\EntityDialogWindow.baml
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\BouquetFormView.baml
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderDetailsFormView.baml
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderFormView.baml
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\UserFormView.baml
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\EntityDialogWindow.g.cs
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\BouquetFormView.g.cs
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderDetailsFormView.g.cs
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderFormView.g.cs
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\UserFormView.g.cs
+C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\GeneratedInternalTypeHelper.g.cs

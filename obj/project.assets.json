@@ -1111,11 +1111,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\param\\repos\\FloraConnect\\FlowerShop.WpfClient.csproj",
+      "projectUniqueName": "C:\\Users\\param\\source\\repos\\FloraConnect\\FlowerShop.WpfClient.csproj",
       "projectName": "FlowerShop.WpfClient",
-      "projectPath": "C:\\Users\\param\\repos\\FloraConnect\\FlowerShop.WpfClient.csproj",
+      "projectPath": "C:\\Users\\param\\source\\repos\\FloraConnect\\FlowerShop.WpfClient.csproj",
       "packagesPath": "C:\\Users\\param\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\param\\repos\\FloraConnect\\obj\\",
+      "outputPath": "C:\\Users\\param\\source\\repos\\FloraConnect\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1136,11 +1136,11 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "projectReferences": {
-            "C:\\Users\\param\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj": {
-              "projectPath": "C:\\Users\\param\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj"
+            "C:\\Users\\param\\source\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj": {
+              "projectPath": "C:\\Users\\param\\source\\repos\\FlowerShop.Data\\FlowerShop.Data.csproj"
             },
-            "C:\\Users\\param\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj": {
-              "projectPath": "C:\\Users\\param\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj"
+            "C:\\Users\\param\\source\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj": {
+              "projectPath": "C:\\Users\\param\\source\\repos\\FlowerShop.Dto\\FlowerShop.Dto.csproj"
             }
           }
         }
