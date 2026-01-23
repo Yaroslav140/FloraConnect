@@ -156,3 +156,8 @@ C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\Or
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\OrderFormView.g.cs
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\Views\Forms\UserFormView.g.cs
 C:\Users\param\source\repos\FloraConnect\obj\Debug\net9.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\param\source\repos\FloraConnect\bin\Debug\net9.0-windows\Microsoft.Extensions.Configuration.dll
+C:\Users\param\source\repos\FloraConnect\bin\Debug\net9.0-windows\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\param\source\repos\FloraConnect\bin\Debug\net9.0-windows\Microsoft.Extensions.Diagnostics.dll
+C:\Users\param\source\repos\FloraConnect\bin\Debug\net9.0-windows\Microsoft.Extensions.Http.dll
+C:\Users\param\source\repos\FloraConnect\bin\Debug\net9.0-windows\Microsoft.Extensions.Options.ConfigurationExtensions.dll

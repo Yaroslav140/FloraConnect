@@ -9,7 +9,7 @@ namespace FlowerShop.WpfClient
         public Main()
         {
             InitializeComponent();
-            DataContext = App.Service.GetRequiredService<MainViewModel>();
+            DataContext = App.Services.GetRequiredService<MainViewModel>();
         }
     }
 }

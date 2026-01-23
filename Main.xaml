@@ -10,7 +10,7 @@
         Background="#212529"
         ResizeMode="NoResize">
     <Window.Resources>
-        <conv:WwwrootPathToImageConverter x:Key="ImgConv" Wwwroot="C:\Users\param\repos\FlowerShop\wwwroot"/>
+        <conv:WwwrootPathToImageConverter x:Key="ImgConv" Wwwroot="C:\Users\param\source\repos\FlowerShop\wwwroot"/>
     </Window.Resources>
     <Grid Cursor="">
         <Grid.ColumnDefinitions>
@@ -223,10 +223,10 @@
                     <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
                         <DataGrid ItemsSource="{Binding BouquetsVM.Bouquets}" SelectedItem="{Binding BouquetsVM.SelectedBouquet, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Картинка" Width="*">
+                                <DataGridTemplateColumn Header="Картинка" Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding ImagePath, Converter={StaticResource ImgConv}}" Height="50" Stretch="Uniform"/>
+                                            <Image Source="{Binding ImagePath, Converter={StaticResource ImgConv}}" MaxWidth="120"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

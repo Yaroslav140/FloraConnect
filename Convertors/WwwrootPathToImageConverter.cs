@@ -7,7 +7,7 @@ namespace FlowerShop.WpfClient.Convertors
 {
     public class WwwrootPathToImageConverter : IValueConverter
     {
-        public string Wwwroot { get; set; } = @"C:\Users\param\repos\FlowerShop\wwwroot";
+        public string Wwwroot { get; set; } = @"C:\Users\param\source\repos\FlowerShop\wwwroot";
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

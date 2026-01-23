@@ -3,41 +3,52 @@ using FlowerShop.WpfClient.Services;
 using FlowerShop.WpfClient.Timers;
 using FlowerShop.WpfClient.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
 using System.Windows;
 
 namespace FlowerShop.WpfClient
 {
     public partial class App : Application
     {
-        public static ServiceProvider Service = null!;
-        public App()
-        {
-        }
+        public static IServiceProvider Services { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             var sc = new ServiceCollection();
+
             sc.AddSingleton<Main>();
+
             sc.AddTransient<MainViewModel>();
             sc.AddTransient<UserViewModel>();
             sc.AddTransient<OrderViewModel>();
             sc.AddTransient<BouquetViewModel>();
 
-            sc.AddScoped<HttpClient>();
-            sc.AddScoped<BaseApiClient>();
-            sc.AddScoped<UserApi>();
-            sc.AddScoped<OrderApi>();
-            sc.AddScoped<BouquetApi>();
-            sc.AddScoped<UserPollingService>();
-            sc.AddScoped<OrderPollingService>();
-            sc.AddScoped<BouquetPollingService>();
+            sc.AddHttpClient(); 
+
+            sc.AddSingleton<BaseApiClient>();
+            sc.AddSingleton<UserApi>();
+            sc.AddSingleton<OrderApi>();
+            sc.AddSingleton<BouquetApi>();
+
+            sc.AddSingleton<UserPollingService>();
+            sc.AddSingleton<OrderPollingService>();
+            sc.AddSingleton<BouquetPollingService>();
+
             sc.AddSingleton<IDialogService, DialogService>();
 
-            Service = sc.BuildServiceProvider();
-            var main = Service.GetRequiredService<Main>();
+            Services = sc.BuildServiceProvider();
+
+            var main = Services.GetRequiredService<Main>();
             main.Show();
+
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (Services is IDisposable d)
+                d.Dispose();
+
+            base.OnExit(e);
         }
     }
 }

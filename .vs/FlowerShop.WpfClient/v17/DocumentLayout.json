@@ -1,26 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\param\\repos\\FloraConnect\\",
+  "WorkspaceRootPath": "C:\\Users\\param\\source\\repos\\FloraConnect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\baseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\baseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\source\\repos\\floraconnect\\main.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:main.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\orderapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\orderapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\apiclient\\userapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:apiclient\\userapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\repos\\floraconnect\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\source\\repos\\floraconnect\\main.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:main.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,62 +30,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml.cs",
-              "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml.cs",
-              "RelativeToolTip": "App.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T19:09:13.096Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserApi.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\UserApi.cs",
-              "RelativeDocumentMoniker": "ApiClient\\UserApi.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\UserApi.cs",
-              "RelativeToolTip": "ApiClient\\UserApi.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T19:09:09.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OrderApi.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\OrderApi.cs",
-              "RelativeDocumentMoniker": "ApiClient\\OrderApi.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\OrderApi.cs",
-              "RelativeToolTip": "ApiClient\\OrderApi.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T19:09:08.384Z"
+              "DocumentIndex": 0,
+              "Title": "Main.xaml",
+              "DocumentMoniker": "C:\\Users\\param\\source\\repos\\FloraConnect\\Main.xaml",
+              "RelativeDocumentMoniker": "Main.xaml",
+              "ToolTip": "C:\\Users\\param\\source\\repos\\FloraConnect\\Main.xaml",
+              "RelativeToolTip": "Main.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-23T17:36:01.052Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-19T19:07:17.358Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BaseApiClient.cs",
-              "DocumentMoniker": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\BaseApiClient.cs",
-              "RelativeDocumentMoniker": "ApiClient\\BaseApiClient.cs",
-              "ToolTip": "C:\\Users\\param\\repos\\FloraConnect\\ApiClient\\BaseApiClient.cs",
-              "RelativeToolTip": "ApiClient\\BaseApiClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
+              "Title": "Main.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\param\\source\\repos\\FloraConnect\\Main.xaml.cs",
+              "RelativeDocumentMoniker": "Main.xaml.cs",
+              "ToolTip": "C:\\Users\\param\\source\\repos\\FloraConnect\\Main.xaml.cs",
+              "RelativeToolTip": "Main.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T19:06:14.848Z",
+              "WhenOpened": "2026-01-23T17:35:55.308Z",
               "EditorCaption": ""
             }
           ]
