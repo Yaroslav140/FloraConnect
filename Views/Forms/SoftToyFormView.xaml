@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="FlowerShop.WpfClient.Views.Forms.SoftToyFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="Название мягкой игрушки" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding SoftToyName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Описание мягкой игрушки" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding SoftToyDescription, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Цена мягкой игрушки" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+        
+        <TextBlock Text="Колличество на складе" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" Style="{StaticResource FormsBox}"/>
+
+        <TextBlock Text="Фото мягкой игрушки" Margin="0,0,0,6" Foreground="{StaticResource FgPrimary}" FontFamily="Segoe UI Semibold"/>
+        <TextBox Text="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormsBox}"/>
+    </StackPanel>
+</UserControl>

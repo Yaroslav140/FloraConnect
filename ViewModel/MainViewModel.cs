@@ -12,6 +12,7 @@ namespace FlowerShop.WpfClient.ViewModel
         public UserViewModel UsersVM { get; }
         public OrderViewModel OrdersVM { get; }
         public BouquetViewModel BouquetsVM { get; }
+        public SoftToyViewModel SoftToysVM { get; }
 
         private object _current;
         public object Current
@@ -55,7 +56,6 @@ namespace FlowerShop.WpfClient.ViewModel
                 {
                     Current = OrdersVM;
                     SearchText = OrdersVM.SearchText ?? "";
-                    System.Diagnostics.Debug.WriteLine("Switched to OrdersVM");
                 }
             }
         }
@@ -76,6 +76,23 @@ namespace FlowerShop.WpfClient.ViewModel
                 }
             }
         }
+
+        private bool _isSoftToysSelected;
+        public bool IsSoftToysSelected
+        {
+            get => _isSoftToysSelected;
+            set
+            {
+                if (_isSoftToysSelected == value) return;
+                _isSoftToysSelected = value;
+                OnPropertyChanged();
+                if (value)
+                {
+                    Current = SoftToysVM;
+                    SearchText = SoftToysVM.SearchText ?? "";
+                }
+            }
+        }
         private string? _searchText;
         public string? SearchText
         {
@@ -93,6 +110,8 @@ namespace FlowerShop.WpfClient.ViewModel
                         userVM.SearchText = value;
                     else if (Current is OrderViewModel orderVM)
                         orderVM.SearchText = value;
+                    else if (Current is SoftToyViewModel softToyVM)
+                        softToyVM.SearchText = value;
                 }
             }
         }
@@ -100,11 +119,12 @@ namespace FlowerShop.WpfClient.ViewModel
 
         public ICommand SearchCommand { get; }
 
-        public MainViewModel(UserViewModel usersVM, OrderViewModel ordersVM, BouquetViewModel boquetsVM)
+        public MainViewModel(UserViewModel usersVM, OrderViewModel ordersVM, BouquetViewModel boquetsVM, SoftToyViewModel softToyVM)
         {
             UsersVM = usersVM;
             OrdersVM = ordersVM;
             BouquetsVM = boquetsVM;
+            SoftToysVM = softToyVM;
 
             Current = OrdersVM;
             IsOrdersSelected = true;
@@ -113,38 +133,31 @@ namespace FlowerShop.WpfClient.ViewModel
 
         private bool CanSearch()
         {
-            var canSearch = Current is BouquetViewModel or UserViewModel or OrderViewModel;
-            System.Diagnostics.Debug.WriteLine($"CanSearch: {canSearch}, Current: {Current?.GetType().Name}");
+            var canSearch = Current is BouquetViewModel or UserViewModel or OrderViewModel or SoftToyViewModel;
             return canSearch;
         }
 
         private void ExecuteSearch()
         {
-            System.Diagnostics.Debug.WriteLine("=== ExecuteSearch CALLED ===");
-            System.Diagnostics.Debug.WriteLine($"Current: {Current?.GetType().Name}");
-            System.Diagnostics.Debug.WriteLine($"SearchText: '{SearchText}'");
-
             if (Current is BouquetViewModel bouquetVM)
             {
-                System.Diagnostics.Debug.WriteLine("Executing BouquetVM search");
                 bouquetVM.SearchText = SearchText;
                 _ = bouquetVM.SearchBouquetAsync();
             }
             else if (Current is UserViewModel userVM)
             {
-                System.Diagnostics.Debug.WriteLine("Executing UserVM search");
                 userVM.SearchText = SearchText;
                 _ = userVM.SearchUserAsync();
             }
             else if (Current is OrderViewModel orderVM)
             {
-                System.Diagnostics.Debug.WriteLine("Executing OrderVM search");
                 orderVM.SearchText = SearchText;
                 _ = orderVM.SearchOrderAsync();
             }
-            else
+            else if (Current is SoftToyViewModel softToyVM)
             {
-                System.Diagnostics.Debug.WriteLine($"ERROR: Unknown Current type: {Current?.GetType().Name}");
+                softToyVM.SearchText = SearchText;
+                _ = softToyVM.SearchSoftToyAsync();
             }
         }
 
@@ -156,6 +169,7 @@ namespace FlowerShop.WpfClient.ViewModel
             (UsersVM as IDisposable)?.Dispose();
             (OrdersVM as IDisposable)?.Dispose();
             (BouquetsVM as IDisposable)?.Dispose();
+            (SoftToysVM as IDisposable)?.Dispose();
         }
     }
 }

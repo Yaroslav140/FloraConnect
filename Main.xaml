@@ -10,7 +10,7 @@
         Background="#212529"
         ResizeMode="NoResize">
     <Window.Resources>
-        <conv:WwwrootPathToImageConverter x:Key="ImgConv" Wwwroot="C:\Users\param\source\repos\FlowerShop\wwwroot"/>
+        <conv:WwwrootPathToImageConverter x:Key="ImgConv" Wwwroot="C:\Users\param\source\repos\FlowerShopApp\FlowerShop\wwwroot"/>
     </Window.Resources>
     <Grid Cursor="">
         <Grid.ColumnDefinitions>
@@ -32,6 +32,7 @@
             <RadioButton x:Name="OrdersView" GroupName="FlowerView" Content="Заказы" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsOrdersSelected, Mode=TwoWay}"/>
             <RadioButton x:Name="UsersView" GroupName="FlowerView" Content="Пользователи" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsUsersSelected, Mode=TwoWay}"/>
             <RadioButton x:Name="BouquetsView" GroupName="FlowerView" Content="Букеты" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsBouquetsSelected, Mode=TwoWay}"/>
+            <RadioButton x:Name="SoftToysView" GroupName="FlowerView" Content="Мягкие игрушки" Style="{StaticResource DefaultButton}" IsChecked="{Binding IsSoftToysSelected, Mode=TwoWay}"/>
         </StackPanel>
 
         <DockPanel Grid.Column="1" Margin="20,15,20,20">
@@ -244,6 +245,62 @@
                                                     <Image Source="/Image/edit.png" Width="16" Height="16"/>
                                                 </Button>
                                                 <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.BouquetsVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                                    <Image Source="/Image/delete.png" Width="16" Height="16"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </DockPanel>
+            </Grid>
+            <Grid Margin="20" x:Name="SoftToyGrid">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=SoftToysView}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <DockPanel>
+                    <DockPanel Margin="0,0,0,20" DockPanel.Dock="Top">
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="Мягкие игрушки" FontSize="20" Foreground="{StaticResource FgPrimary}" DockPanel.Dock="Top"/>
+                            <TextBlock Text="Управление мягкими игрушками" FontSize="20" Foreground="{StaticResource FgMuted}" DockPanel.Dock="Bottom"/>
+                        </StackPanel>
+                        <DockPanel HorizontalAlignment="Right">
+                            <Button x:Name="AddSoftToy" Content="+    Добавить мягкую игрушку" Style="{StaticResource AddButton}" Command="{Binding SoftToysVM.CreateCommand}"/>
+                        </DockPanel>
+                    </DockPanel>
+                    <Border Background="{StaticResource BgPrimary}" CornerRadius="10" Padding="10">
+                        <DataGrid ItemsSource="{Binding SoftToysVM.SoftToys}" SelectedItem="{Binding SoftToysVM.SelectedSoftToy, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" DockPanel.Dock="Bottom">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Картинка" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImagePath, Converter={StaticResource ImgConv}}" MaxWidth="120"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Id игрушки" Binding="{Binding SoftToyId}" Width="*"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="*"/>
+                                <DataGridTextColumn Header="Колличество" Binding="{Binding Quantity}" Width="*"/>
+
+                                <DataGridTemplateColumn Header="Действия" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.SoftToysVM.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                    <Image Source="/Image/edit.png" Width="16" Height="16"/>
+                                                </Button>
+                                                <Button Style="{StaticResource ActionButton}" Command="{Binding DataContext.SoftToysVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <Image Source="/Image/delete.png" Width="16" Height="16"/>
                                                 </Button>
                                             </StackPanel>

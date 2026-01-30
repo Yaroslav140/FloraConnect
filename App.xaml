@@ -5,7 +5,6 @@
              xmlns:forms="clr-namespace:FlowerShop.WpfClient.Views.Forms">
     <Application.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Main.xaml"/>
                 <ResourceDictionary Source="/Styles/DataGrid.xaml"/>
@@ -26,6 +25,10 @@
 
             <DataTemplate DataType="{x:Type vm:BouquetEditViewModel}">
                 <forms:BouquetFormView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:SoftToyEditViewModel}">
+                <forms:SoftToyFormView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

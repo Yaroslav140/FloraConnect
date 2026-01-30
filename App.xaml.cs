@@ -21,6 +21,7 @@ namespace FlowerShop.WpfClient
             sc.AddTransient<UserViewModel>();
             sc.AddTransient<OrderViewModel>();
             sc.AddTransient<BouquetViewModel>();
+            sc.AddTransient<SoftToyViewModel>();
 
             sc.AddHttpClient(); 
 
@@ -28,10 +29,12 @@ namespace FlowerShop.WpfClient
             sc.AddSingleton<UserApi>();
             sc.AddSingleton<OrderApi>();
             sc.AddSingleton<BouquetApi>();
+            sc.AddSingleton<SoftToyApi>();
 
             sc.AddSingleton<UserPollingService>();
             sc.AddSingleton<OrderPollingService>();
             sc.AddSingleton<BouquetPollingService>();
+            sc.AddSingleton<SoftToyPollingService>();
 
             sc.AddSingleton<IDialogService, DialogService>();
 

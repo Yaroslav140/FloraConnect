@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\param\source\repos\FloraConnect\App.xaml
-9-578758487
+10-1343994273
 
-34568665286
+351529800883
 2301642323966
-Main.xaml;Styles\Buttons.xaml;Styles\DataGrid.xaml;Styles\Main.xaml;Views\EntityDialogWindow.xaml;Views\Forms\BouquetFormView.xaml;Views\Forms\OrderDetailsFormView.xaml;Views\Forms\OrderFormView.xaml;Views\Forms\UserFormView.xaml;
+Main.xaml;Styles\Buttons.xaml;Styles\DataGrid.xaml;Styles\Main.xaml;Views\EntityDialogWindow.xaml;Views\Forms\BouquetFormView.xaml;Views\Forms\OrderDetailsFormView.xaml;Views\Forms\OrderFormView.xaml;Views\Forms\SoftToyFormView.xaml;Views\Forms\UserFormView.xaml;
 
-True
+False
 

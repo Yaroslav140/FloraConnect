@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\param\\source\\repos\\FloraConnect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\source\\repos\\floraconnect\\viewmodel\\edits\\orderdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:viewmodel\\edits\\orderdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|c:\\users\\param\\source\\repos\\floraconnect\\viewmodel\\edits\\softtoyeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F533D6A9-EC7E-2A6F-8DA4-84EC0008F794}|FlowerShop.WpfClient.csproj|solutionrelative:viewmodel\\edits\\softtoyeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OrderDetailsViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\param\\source\\repos\\FloraConnect\\ViewModel\\Edits\\OrderDetailsViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\Edits\\OrderDetailsViewModel.cs",
-              "ToolTip": "C:\\Users\\param\\source\\repos\\FloraConnect\\ViewModel\\Edits\\OrderDetailsViewModel.cs",
-              "RelativeToolTip": "ViewModel\\Edits\\OrderDetailsViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAqAAAAAAAAAA==",
+              "Title": "SoftToyEditViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\param\\source\\repos\\FloraConnect\\ViewModel\\Edits\\SoftToyEditViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\Edits\\SoftToyEditViewModel.cs",
+              "ToolTip": "C:\\Users\\param\\source\\repos\\FloraConnect\\ViewModel\\Edits\\SoftToyEditViewModel.cs",
+              "RelativeToolTip": "ViewModel\\Edits\\SoftToyEditViewModel.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwC4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-30T06:50:23.999Z",
+              "WhenOpened": "2026-01-30T10:22:00.137Z",
               "EditorCaption": ""
             }
           ]
