@@ -13,7 +13,9 @@
           "FlowerShop.Dto": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.8",
           "Microsoft.Extensions.Hosting.Abstractions": "9.0.10",
-          "Microsoft.Extensions.Http": "9.0.0"
+          "Microsoft.Extensions.Http": "9.0.0",
+          "FlowerShop.Data.Reference": "1.0.0.0",
+          "FlowerShop.Dto.Reference": "1.0.0.0"
         },
         "runtime": {
           "FlowerShop.WpfClient.dll": {}
@@ -350,12 +352,7 @@
           }
         }
       },
-      "FlowerShop.Data/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.8",
-          "Microsoft.EntityFrameworkCore": "9.0.8",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
-        },
+      "FlowerShop.Data.Reference/1.0.0.0": {
         "runtime": {
           "FlowerShop.Data.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -363,10 +360,7 @@
           }
         }
       },
-      "FlowerShop.Dto/1.0.0": {
-        "dependencies": {
-          "FlowerShop.Data": "1.0.0"
-        },
+      "FlowerShop.Dto.Reference/1.0.0.0": {
         "runtime": {
           "FlowerShop.Dto.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -585,13 +579,13 @@
       "path": "npgsql.entityframeworkcore.postgresql/9.0.4",
       "hashPath": "npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512"
     },
-    "FlowerShop.Data/1.0.0": {
-      "type": "project",
+    "FlowerShop.Data.Reference/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "FlowerShop.Dto/1.0.0": {
-      "type": "project",
+    "FlowerShop.Dto.Reference/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

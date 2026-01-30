@@ -177,6 +177,7 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
         public List<CreateOrderItemDto> BuildCreateItems() =>
             OrderItems.Select(x => new CreateOrderItemDto(
                 x.BouquetId,
+                x.BouquetId,
                 null,
                 x.Quantity,
                 x.Price
@@ -197,7 +198,7 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
     public sealed class OrderItemVm : INotifyPropertyChanged
     {
         public Guid? OrderItemId { get; set; }
-        public Guid BouquetId { get; set; }
+        public Guid? BouquetId { get; set; }
         public GetBouquetDto Bouquet { get; set; } = null!;
 
         private int _quantity;

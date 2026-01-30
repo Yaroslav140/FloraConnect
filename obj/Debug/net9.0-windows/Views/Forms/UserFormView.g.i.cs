@@ -52,7 +52,7 @@ namespace FlowerShop.WpfClient.Views.Forms {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FlowerShop.WpfClient;component/views/forms/userformview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FlowerShop.WpfClient;V1.0.0.0;component/views/forms/userformview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Forms\UserFormView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

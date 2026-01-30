@@ -35,6 +35,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="FlowerShop.Data">
+      <HintPath>..\FlowerShopApp\FlowerShop.Data\bin\Debug\net9.0\FlowerShop.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="FlowerShop.Dto">
+      <HintPath>..\FlowerShopApp\FlowerShop.Dto\bin\Debug\net9.0\FlowerShop.Dto.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Image\delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
