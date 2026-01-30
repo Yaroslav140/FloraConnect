@@ -100,7 +100,9 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
                     {
                         OrderItemId = it.OrderItemId,
                         BouquetId = it.BouquetId,
+                        SoftToyId = it.SoftToyId,       
                         Bouquet = it.Bouquet,
+                        SoftToy = it.SoftToy,           
                         Quantity = it.Quantity,
                         Price = it.Price
                     });
@@ -175,21 +177,22 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
         }
 
         public List<CreateOrderItemDto> BuildCreateItems() =>
-            OrderItems.Select(x => new CreateOrderItemDto(
+            [.. OrderItems.Select(x => new CreateOrderItemDto(
                 x.BouquetId,
-                x.BouquetId,
+                x.SoftToyId,
                 null,
                 x.Quantity,
                 x.Price
-            )).ToList();
+            ))];
 
         public List<UpdateOrderItemDto> BuildUpdateItems() =>
-            OrderItems.Select(x => new UpdateOrderItemDto(
+            [.. OrderItems.Select(x => new UpdateOrderItemDto(
                 x.OrderItemId,
                 x.BouquetId,
+                x.SoftToyId,
                 x.Quantity,
                 x.Price
-            )).ToList();
+            ))];
 
         private void OnPropertyChanged([CallerMemberName] string? n = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
@@ -199,8 +202,11 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
     {
         public Guid? OrderItemId { get; set; }
         public Guid? BouquetId { get; set; }
-        public GetBouquetDto Bouquet { get; set; } = null!;
-
+        public Guid? SoftToyId { get; set; }
+        public GetBouquetDto? Bouquet { get; set; }
+        public GetSoftToyDto? SoftToy { get; set; }
+        public decimal LineTotal => Price * Quantity;
+        public string ProductName => Bouquet?.Name ?? SoftToy?.Name ?? "Неизвестно";
         private int _quantity;
         public int Quantity
         {
@@ -225,7 +231,6 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
             }
         }
 
-        public decimal LineTotal => Price * Quantity;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -48,7 +48,7 @@
 
         <GridSplitter Background="{StaticResource FgMuted}" HorizontalAlignment="Stretch" Height="2" Margin="0,0,0,12"/>
 
-        <TextBlock Text="Букеты в заказе" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
+        <TextBlock Text="Позиции в заказе" Margin="0,0,0,12" FontSize="15" Foreground="{StaticResource FgPrimary}"/>
         <DataGrid ItemsSource="{Binding OrderItems}"
           SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
           AutoGenerateColumns="False"
@@ -56,7 +56,7 @@
           IsReadOnly="True"
           Margin="0,0,0,12">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Букет" Binding="{Binding Bouquet.Name}" Width="*"/>
+                <DataGridTextColumn Header="Позиции" Binding="{Binding ProductName}" Width="*"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="Auto"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="Auto"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding LineTotal}" Width="Auto"/>

@@ -35,9 +35,10 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
             Items = new ObservableCollection<OrderItemDetailsVm>(
                 order.OrderItem.Select(it => new OrderItemDetailsVm
                 {
-                    BouquetName = it.Bouquet?.Name ?? "(без названия)",
+                    BouquetName = it.Bouquet?.Name,
+                    SoftToyName = it.SoftToy?.Name,
                     Quantity = it.Quantity,
-                    Price = it.Bouquet.Price
+                    Price = it.Bouquet?.Price ?? it.SoftToy?.Price ?? 0
                 }));
 
             OkCommand = new RelayCommand(_ => RequestClose?.Invoke(true));
@@ -47,9 +48,11 @@ namespace FlowerShop.WpfClient.ViewModel.Edits
 
     public sealed class OrderItemDetailsVm
     {
-        public string BouquetName { get; set; } = "";
+        public string? BouquetName { get; set; } = "";
+        public string? SoftToyName { get; set; } = "";
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal LineTotal => Price * Quantity;
+        public string PositionName => BouquetName ?? SoftToyName ?? "Неизвестный товар";
     }
 }

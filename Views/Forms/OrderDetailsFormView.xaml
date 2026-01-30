@@ -39,7 +39,7 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="0,12,0,0">
-            <TextBlock Text="Букеты в заказе" Foreground="{StaticResource FgMuted}" Margin="0,0,0,6"/>
+            <TextBlock Text="Позиции в заказе" Foreground="{StaticResource FgMuted}" Margin="0,0,0,6"/>
 
             <DataGrid ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
@@ -47,7 +47,7 @@
                       CanUserAddRows="False"
                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Букет" Binding="{Binding BouquetName}" Width="Auto"/>
+                    <DataGridTextColumn Header="Позиция" Binding="{Binding PositionName}" Width="Auto"/>
                     <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="Auto"/>
                     <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="Auto"/>
                     <DataGridTextColumn Header="Сумма" Binding="{Binding LineTotal}" Width="Auto"/>
